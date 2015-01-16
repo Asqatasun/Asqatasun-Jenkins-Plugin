@@ -1,0 +1,55 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  <!--
+    This Jelly script is used to produce the global configuration option.
+
+    Jenkins uses a set of tag libraries to provide uniformity in forms.
+    To determine where this tag is defined, first check the namespace URI,
+    and then look under $JENKINS/views/. For example, <f:section> is defined
+    in $JENKINS/views/lib/form/section.jelly.
+
+    It's also often useful to just check other similar scripts to see what
+    tags they use. Views are always organized according to its owner class,
+    so it should be straightforward to find them.
+  -->
+  <f:section title="Tanaguru Runner">
+    <!--
+        Creates a text field that shows the value of the "tanaguruCliPath" property.
+        When submitted, it will be passed to the corresponding constructor parameter.
+    -->
+    <j:set var="installation" value="${descriptor.installation}"/>
+    <f:entry title="${%tanaguruCliPath}"  field="tanaguruCliPath">
+      <f:textbox />
+    </f:entry>
+    <f:entry title="${%displayPort}" field="displayPort">
+      <f:textbox />
+    </f:entry>
+    <f:entry title="${%firefoxPath}"  field="firefoxPath">
+      <f:textbox />
+    </f:entry>
+    <f:entry title="${%webappUrl}" description="${%webappUrlDescr}" field="webappUrl">
+      <f:textbox value="${installation.webappUrl}"/>
+    </f:entry>
+    <f:entry title="${%databaseHost}"  field="databaseHost">
+      <f:textbox value="${installation.databaseHost}"/>
+    </f:entry>
+    <f:entry title="${%databasePort}"  field="databasePort">
+      <f:textbox value="${installation.databasePort}"/>
+    </f:entry>
+    <f:entry title="${%databaseName}"  field="databaseName">
+      <f:textbox value="${installation.databaseName}"/>
+    </f:entry>
+    <f:entry title="${%databaseLogin}" description="${%databaseLoginDescr}" field="databaseLogin">
+      <f:textbox value="${installation.databaseLogin}"/>
+    </f:entry>
+    <f:entry title="${%databasePassword}" description="${%databasePasswordDescr}" field="databasePassword">
+      <f:password value="${installation.databasePassword}" />
+    </f:entry>
+    <f:entry title="${%tanaguruLogin}" description="${%tanaguruLoginDescr}" field="tanaguruLogin">
+      <f:textbox value="${installation.tanaguruLogin}" />
+    </f:entry>
+    <f:entry title="${%tanaguruPassword}" description="${%tanaguruPasswordDescr}" field="tanaguruPassword">
+      <f:password value="${installation.tanaguruPassword}" />
+    </f:entry>
+  </f:section>
+</j:jelly>
