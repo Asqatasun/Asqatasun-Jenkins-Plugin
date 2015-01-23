@@ -1,3 +1,24 @@
+/*
+ *  Tanaguru Runner - Trigger Automated webpage assessmentfrom Jenkins 
+ *  Copyright (C) 2008-2015  Tanaguru.org
+ * 
+ *  This file is part of Tanaguru.
+ * 
+ *  Tanaguru is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as
+ *  published by the Free Software Foundation, either version 3 of the
+ *  License, or (at your option) any later version.
+ * 
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ * 
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
+ *  Contact us by mail: open-s AT open-s DOT com
+ */
 package jenkins.plugins.tanaguru;
 
 import hudson.Launcher;
@@ -23,8 +44,6 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 /**
- * Sample {@link Builder}.
- *
  * <p>
  * When the user configures the project and enables this builder,
  * {@link DescriptorImpl#newInstance(StaplerRequest)} is invoked and a new
@@ -41,6 +60,7 @@ import org.apache.commons.io.FileUtils;
  */
 public class TanaguruRunnerBuilder extends Builder {
 
+    private static final String PLOT_PLUGIN_YVALUE = "YVALUE";
     private static final String TG_SCRIPT_NAME = "bin/tanaguru.sh";
     private final String scenario;
     private final String contractId;
@@ -78,7 +98,6 @@ public class TanaguruRunnerBuilder extends Builder {
     @Override
     public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException {
         // This is where you 'build' the project.
-        // Since this is a dummy, we just say 'hello world' and call that a build.
         File contextDir = new File(getDescriptor().getTanaguruCliPath());
         if (!contextDir.exists()) {
             listener.getLogger().println("Le chemin vers le contexte d'exécution est incorrect");
@@ -121,6 +140,8 @@ public class TanaguruRunnerBuilder extends Builder {
     }
     
     /**
+     * Export atomic results from Tanaguru Analysis to enable graphic creation
+     * through plot plugin.
      * 
      * @param tanaguruRunner
      * @param workspace 
@@ -131,31 +152,30 @@ public class TanaguruRunnerBuilder extends Builder {
         
         File workspacedir = new File(workspace.toURI());
         
-        File markFile = new File (workspacedir.getAbsolutePath()+"/tanaguru-mark.properties");
-        FileUtils.write(markFile, "YVALUE="+tanaguruRunner.mark);
-        
-        File passedFile = new File (workspacedir.getAbsolutePath()+"/tanaguru-passed.properties");
-        FileUtils.write(passedFile, "YVALUE="+tanaguruRunner.nbPassed);
-        
-        File failedFile = new File (workspacedir.getAbsolutePath()+"/tanaguru-failed.properties");
-        FileUtils.write(failedFile, "YVALUE="+tanaguruRunner.nbFailed);
-        
-            File failedOccurencesFile = new File (workspacedir.getAbsolutePath()+"/tanaguru-failedOccurences.properties");
-        FileUtils.write(failedOccurencesFile, "YVALUE="+tanaguruRunner.nbFailedOccurences);
-        
-        File nmiFile = new File (workspacedir.getAbsolutePath()+"/tanaguru-nmi.properties");
-        FileUtils.write(nmiFile, "YVALUE="+tanaguruRunner.nbNmi);
-        
-        File naFile = new File (workspacedir.getAbsolutePath()+"/tanaguru-na.properties");
-        FileUtils.write(naFile, "YVALUE="+tanaguruRunner.nbNa);
-        
-        File ntFile = new File (workspacedir.getAbsolutePath()+"/tanaguru-nt.properties");
-        FileUtils.write(ntFile, "YVALUE="+tanaguruRunner.nbNt);
+        writeValueToFile(tanaguruRunner.mark, "mark", workspacedir);
+        writeValueToFile(tanaguruRunner.nbPassed, "passed", workspacedir);
+        writeValueToFile(tanaguruRunner.nbFailed, "failed", workspacedir);
+        writeValueToFile(tanaguruRunner.nbFailedOccurences, "failedOccurences", workspacedir);
+        writeValueToFile(tanaguruRunner.nbNmi, "nmi", workspacedir);
+        writeValueToFile(tanaguruRunner.nbNa, "na", workspacedir);
+        writeValueToFile(tanaguruRunner.nbNt, "nt", workspacedir);
     }
     
-    // Overridden for better type safety.
-    // If your plugin doesn't really define any property on Descriptor,
-    // you don't have to do this.
+    /**
+     * 
+     * @param value
+     * @param valueType
+     * @param workspacedir
+     * @return
+     * @throws IOException
+     * @throws InterruptedException 
+     */
+    private void writeValueToFile(String value, String valueType, File workspacedir) 
+            throws IOException, InterruptedException{
+        File ntFile = new File (workspacedir.getAbsolutePath()+"/tanaguru-"+valueType+".properties");
+        FileUtils.write(ntFile, PLOT_PLUGIN_YVALUE+value);
+    }
+    
     @Override
     public DescriptorImpl getDescriptor() {
         return (DescriptorImpl) super.getDescriptor();
@@ -169,11 +189,6 @@ public class TanaguruRunnerBuilder extends Builder {
     /**
      * Descriptor for {@link TanaguruRunnerBuilder}. Used as a singleton. The
      * class is marked as public so that it can be accessed from views.
-     *
-     * <p>
-     * See
-     * <tt>src/main/resources/hudson/plugins/hello_world/HelloWorldBuilder/*.jelly</tt>
-     * for the actual HTML fragment for the configuration screen.
      */
     @Extension // This indicates to Jenkins that this is an implementation of an extension point.
     public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
@@ -192,7 +207,7 @@ public class TanaguruRunnerBuilder extends Builder {
         }
 
         /**
-         * Performs on-the-fly validation of the form field 'name'.
+         * Performs on-the-fly validation of the form field 'scenario'.
          *
          * @param value This parameter receives the value that the user has
          * typed.
@@ -210,12 +225,16 @@ public class TanaguruRunnerBuilder extends Builder {
             if (value.length() == 0) {
                 return FormValidation.error("Please fill-in a path to a scenario");
             }
-            if (value.length() < 4) {
-                return FormValidation.warning("Isn't the name too short?");
-            }
             return FormValidation.ok();
         }
 
+        /**
+         * Fill-in values of the form field 'referential and level'.
+         *
+         * @param selection This parameter receives the value that the user has
+         * typed.
+         * @return the filled-in ListBoxModel 
+         */
         public ListBoxModel doFillRefAndLevelItems(@QueryParameter String selection) {
             return new ListBoxModel(
                     new Option("Accessiweb2.2 : Bronze", "Aw22;Bz", false),
@@ -234,7 +253,7 @@ public class TanaguruRunnerBuilder extends Builder {
         }
 
         /**
-         * This human readable name is used in the configuration screen.
+         * @return the human readable name used in the configuration screen.
          */
         @Override
         public String getDisplayName() {
@@ -285,7 +304,7 @@ public class TanaguruRunnerBuilder extends Builder {
         }
 
         /**
-         * @return all configured {@link hudson.plugins.sonar.SonarInstallation}
+         * @return all configured {@link jenkins.plugins.tanaguru.TanaguruInstallation}
          */
         public TanaguruInstallation getInstallation() {
             return tanaguruInstallation;
