@@ -34,9 +34,10 @@ import org.apache.commons.lang.StringUtils;
  */
 public class TanaguruRunner {
 
-    private static final String TG_SCRIPT_NAME = "bin/tanaguru.sh";
-
+    private final String tgScriptName;
     private final String scenario;
+    private final String scenarioName;
+    private final int buildNumber;
     private final String firefoxPath;
     private final String referential;
     private final String level;
@@ -44,6 +45,7 @@ public class TanaguruRunner {
     private final File contextDir;
     private final BuildListener listener;
     
+    public String auditId;
     public String mark;
     public String nbPassed;
     public String nbFailed;
@@ -53,14 +55,20 @@ public class TanaguruRunner {
     public String nbNt;
     
     public TanaguruRunner(
+            String tgScriptName,
+            String scenarioName, 
             String scenario, 
+            int buildNumber, 
             String referential, 
             String level, 
             File contextDir,
             String firefoxPath,
             String displayPort,
             BuildListener listener) {
+        this.tgScriptName = tgScriptName;    
         this.scenario = scenario;
+        this.scenarioName = scenarioName;
+        this.buildNumber = buildNumber;
         this.referential = referential;
         this.level = level;
         this.firefoxPath = firefoxPath;
@@ -70,13 +78,11 @@ public class TanaguruRunner {
     }
 
     public void callTanaguruService() throws IOException, InterruptedException {
-        File logFile = File.createTempFile("log-" + new Random().nextInt(), ".log");
-
-        File scenarioFile = File.createTempFile("scenario-" + new Random().nextInt(), ".json");
-        FileUtils.writeStringToFile(scenarioFile, scenario);
+        File logFile = createTempFile("log-" + new Random().nextInt()+".log", "");
+        File scenarioFile = createTempFile(scenarioName+"_#"+buildNumber, scenario);
 
         ProcessBuilder pb = new ProcessBuilder(
-                TG_SCRIPT_NAME,
+                tgScriptName,
                 "-f", firefoxPath,
                 "-r", referential,
                 "-l", level,
@@ -117,6 +123,8 @@ public class TanaguruRunner {
                 nbNa = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
             } else if (StringUtils.startsWith(line, "Nb Not Tested")) {
                 nbNt = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+            } else if (StringUtils.startsWith(line, "Audit Id")) {
+                auditId = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
             }
             
         }
@@ -126,4 +134,24 @@ public class TanaguruRunner {
         return toString();
     }
 
+    /**
+     * Create a temporary file within a temporary folder, created in the
+     * contextDir if not exists (first time)
+     * @param fileName
+     * @param fileContent
+     * @return
+     * @throws IOException 
+     */
+    private File createTempFile(String fileName, String fileContent) throws IOException {
+        File contextDirTemp = new File (contextDir.getAbsolutePath()+"/tmp");
+        if (!contextDirTemp.exists()) {
+            if (contextDirTemp.mkdir()) {
+                contextDirTemp.setExecutable(true);
+                contextDirTemp.setWritable(true);
+            }
+        }
+        File tempFile = new File(contextDirTemp.getAbsolutePath()+"/"+fileName);
+        FileUtils.writeStringToFile(tempFile, fileContent);
+        return tempFile;
+    }
 }
