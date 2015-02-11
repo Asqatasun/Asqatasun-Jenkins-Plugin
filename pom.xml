@@ -7,7 +7,7 @@
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
     <!-- Baseline Jenkins version you use to build and test the plugin. Users must have this version or newer to run. -->
-    <version>1.580.1</version>
+    <version>1.500</version>
     <relativePath/>
   </parent>
   <groupId>org.tanaguru</groupId>
@@ -27,12 +27,12 @@
   </developers>
 
   <!-- Assuming you want to host on @jenkinsci:
-  <scm>
-    <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
-    <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
-    <url>http://github.com/jenkinsci/${project.artifactId}-plugin</url>
-  </scm>
-   -->
+ <scm>
+   <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
+   <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
+   <url>http://github.com/jenkinsci/${project.artifactId}-plugin</url>
+ </scm>
+  -->
   <repositories>
     <repository>
       <id>repo.jenkins-ci.org</id>
@@ -45,11 +45,21 @@
       <url>http://repo.jenkins-ci.org/public/</url>
     </pluginRepository>
   </pluginRepositories>
-<dependencies>
+  <dependencies>
     <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>2.4</version>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
     </dependency>
-</dependencies>
+    <dependency>
+      <groupId>com.saucelabs</groupId>
+      <artifactId>sebuilder-interpreter</artifactId>
+      <version>1.0.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20090211</version>
+    </dependency>
+  </dependencies>
 </project>
