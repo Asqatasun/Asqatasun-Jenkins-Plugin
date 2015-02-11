@@ -47,7 +47,6 @@ public class TanaguruInstallation {
     private String databasePassword;
 
     private final String tanaguruLogin;
-    private String tanaguruPassword;
 
     @DataBoundConstructor
     public TanaguruInstallation(
@@ -57,8 +56,7 @@ public class TanaguruInstallation {
             String databaseName,
             String databaseLogin,
             String databasePassword,
-            String tanaguruLogin,
-            String tanaguruPassword) {
+            String tanaguruLogin) {
         this.webappUrl = webappUrl;
         this.databaseHost = databaseHost;
         this.databasePort = databasePort;
@@ -66,7 +64,6 @@ public class TanaguruInstallation {
         this.databaseLogin = databaseLogin;
         setDatabasePassword(databasePassword);
         this.tanaguruLogin = tanaguruLogin;
-        setTanaguruPassword(tanaguruPassword);
     }
 
     public String getWebappUrl() {
@@ -97,18 +94,8 @@ public class TanaguruInstallation {
         return Scrambler.descramble(databasePassword);
     }
 
-    /**
-     * @return @since 2.0.1
-     */
-    public String getTanaguruPassword() {
-        return Scrambler.descramble(tanaguruPassword);
-    }
-
     public final void setDatabasePassword(String password) {
         this.databasePassword = Scrambler.scramble(Util.fixEmptyAndTrim(password));
     }
 
-    public final void setTanaguruPassword(String tanaguruPassword) {
-        this.tanaguruPassword = Scrambler.scramble(Util.fixEmptyAndTrim(tanaguruPassword));
-    }
 }

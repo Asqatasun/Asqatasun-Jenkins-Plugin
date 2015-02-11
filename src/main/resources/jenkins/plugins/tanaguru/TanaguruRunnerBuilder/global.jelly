@@ -48,8 +48,5 @@
     <f:entry title="${%tanaguruLogin}" description="${%tanaguruLoginDescr}" field="tanaguruLogin">
       <f:textbox value="${installation.tanaguruLogin}" />
     </f:entry>
-    <f:entry title="${%tanaguruPassword}" description="${%tanaguruPasswordDescr}" field="tanaguruPassword">
-      <f:password value="${installation.tanaguruPassword}" />
-    </f:entry>
   </f:section>
 </j:jelly>
