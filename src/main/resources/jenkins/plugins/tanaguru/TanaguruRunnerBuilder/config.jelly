@@ -6,20 +6,22 @@
     See global.jelly for a general discussion about jelly script.
   -->
 
-    <!--
-    Creates a text field that shows the value of the "name" property.
-    When submitted, it will be passed to the corresponding constructor parameter.
-  -->
+  <f:entry title="${%scenarioName}" field="scenarioName">
+    <f:textbox />
+  </f:entry>
+
   <f:entry title="${%scenario}" field="scenario">
     <f:textarea />
   </f:entry>
 
-  <!--
-    Creates a text field that shows the value of the "name" property.
-    When submitted, it will be passed to the corresponding constructor parameter.
-  -->
-  <f:entry title="${%refAndLevel}" field="refAndLevel">
-    <f:select />
+  <f:entry title="${%refAndLevel}">
+    <f:select field="refAndLevel"/>
+  </f:entry>
+  <f:entry title="${%minMarkThresholdForStable}" field="minMarkThresholdForStable" help="/plugin/tanaguru/help-mark-threshold.html">
+    <f:textbox default="100" />
+  </f:entry>
+  <f:entry title="${%maxFailedOccurencesThresholdForStable}" field="maxFailedOccurencesForStable" help="/plugin/tanaguru/help-failed-occurences-threshold.html">
+    <f:textbox default="10" />
   </f:entry>
 
 </j:jelly>
