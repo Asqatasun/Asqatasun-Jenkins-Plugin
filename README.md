@@ -4,7 +4,7 @@ The plugin allows you to trigger Tanaguru analysis from Jenkins using Build step
 
 ## Requirements
 
-Jenkins : v1.597+
+Jenkins : v1.500+
 
 ### System requirements 
 On the same machine, the following components need to be installed : 
