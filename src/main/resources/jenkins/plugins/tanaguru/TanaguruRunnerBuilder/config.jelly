@@ -21,7 +21,13 @@
     <f:textbox default="100" />
   </f:entry>
   <f:entry title="${%maxFailedOccurencesThresholdForStable}" field="maxFailedOccurencesForStable" help="/plugin/tanaguru/help-failed-occurences-threshold.html">
-    <f:textbox default="10" />
+    <f:textbox default="0" />
   </f:entry>
+  <f:advanced>
+    <f:entry title="${%xmxValue}" field="xmxValue" help="/plugin/tanaguru/help-xmx-value.html">
+      <f:textbox default="256"/>
+    </f:entry>
+  </f:advanced>
+  
 
 </j:jelly>

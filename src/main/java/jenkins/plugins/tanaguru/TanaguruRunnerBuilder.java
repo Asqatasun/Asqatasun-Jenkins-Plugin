@@ -75,12 +75,14 @@ public class TanaguruRunnerBuilder extends Builder {
     private static final String INSERT_ACT_NAME = "/sql/insert_act.sh";
     private static final String INSERT_ACT_SCRIPT_NAME = "insert-act.sh";
     private static final String TMP_FOLDER_NAME = "tmp/";
+    private static final String DEFAULT_XMX_VALUE = "256";
     
     private final String scenario;
     private final String scenarioName;
     private final String refAndLevel;
     private final String minMarkThresholdForStable;
     private final String maxFailedOccurencesForStable;
+    private final String xmxValue;
 
     // Fields in config.jelly must match the parameter names in the "DataBoundConstructor"
     @DataBoundConstructor
@@ -89,12 +91,14 @@ public class TanaguruRunnerBuilder extends Builder {
             String scenario, 
             String refAndLevel, 
             String minMarkThresholdForStable,
-            String maxFailedOccurencesForStable) {
+            String maxFailedOccurencesForStable, 
+            String xmxValue) {
         this.scenario = scenario;
         this.refAndLevel = refAndLevel;
         this.scenarioName = scenarioName;
         this.minMarkThresholdForStable = minMarkThresholdForStable;
         this.maxFailedOccurencesForStable = maxFailedOccurencesForStable;
+        this.xmxValue = xmxValue;
     }
 
     /**
@@ -141,6 +145,15 @@ public class TanaguruRunnerBuilder extends Builder {
     public String getMinMarkThresholdForStable() {
         return String.valueOf(minMarkThresholdForStable);
     }
+    
+    /**
+     * We'll use this from the <tt>config.jelly</tt>.
+     *
+     * @return
+     */
+    public String getXmxValue() {
+        return String.valueOf(xmxValue);
+    }
 
     @Override
     public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) throws IOException, InterruptedException {
@@ -168,6 +181,7 @@ public class TanaguruRunnerBuilder extends Builder {
                         contextDir,
                         getDescriptor().getFirefoxPath(), 
                         getDescriptor().getDisplayPort(),
+                        StringUtils.isBlank(xmxValue)? DEFAULT_XMX_VALUE : xmxValue,
                         listener);
 
         tanaguruRunner.callTanaguruService();
@@ -278,16 +292,18 @@ public class TanaguruRunnerBuilder extends Builder {
     }
     
     private void setBuildStatus(AbstractBuild build, TanaguruRunner tanaguruRunner) {
-        if ((StringUtils.isBlank(minMarkThresholdForStable) || Integer.valueOf(minMarkThresholdForStable)<=0) &&
-                (StringUtils.isBlank(maxFailedOccurencesForStable) || Integer.valueOf(maxFailedOccurencesForStable)<=0)) {
+        if ((StringUtils.isBlank(minMarkThresholdForStable) || Integer.valueOf(minMarkThresholdForStable)<0) &&
+                (StringUtils.isBlank(maxFailedOccurencesForStable) || Integer.valueOf(maxFailedOccurencesForStable)<0)) {
             build.setResult(Result.SUCCESS);
             return;
         }
-        if (Float.valueOf(tanaguruRunner.mark) < Integer.valueOf(minMarkThresholdForStable) ) {
+        if (Integer.valueOf(minMarkThresholdForStable) > 0 &&
+                Float.valueOf(tanaguruRunner.mark) < Integer.valueOf(minMarkThresholdForStable) ) {
             build.setResult(Result.UNSTABLE);
             return;
         }
-        if (Integer.valueOf(tanaguruRunner.nbFailedOccurences) > Integer.valueOf(maxFailedOccurencesForStable)) {
+        if (Integer.valueOf(maxFailedOccurencesForStable) > 0 && 
+                Integer.valueOf(tanaguruRunner.nbFailedOccurences) > Integer.valueOf(maxFailedOccurencesForStable)) {
             build.setResult(Result.UNSTABLE);
             return;
         }
@@ -403,6 +419,52 @@ public class TanaguruRunnerBuilder extends Builder {
             return FormValidation.ok();
         }
         
+        /**
+         * Performs on-the-fly validation of the form field 'xmx Value'.
+         *
+         * @param value This parameter receives the value that the user has
+         * typed.
+         * @return Indicates the outcome of the validation. This is sent to the
+         * browser.
+         * <p>
+         * Note that returning {@link FormValidation#error(String)} does not
+         * prevent the form from being saved. It just means that a message will
+         * be displayed to the user.
+         * @throws javax.servlet.ServletException
+         * @throws IOException 
+         */
+        public FormValidation doCheckXmxValue (@QueryParameter String value)
+                throws IOException, ServletException {
+            
+            if (value.length() == 0) {
+                return FormValidation.ok();
+            }
+            try {
+                int xmxValue = Float.valueOf(value).intValue();
+                if (xmxValue <= 64) {
+                  return FormValidation.error("Please fill-in a Xmx value superior to default Xms value (64)");
+                }
+            } catch (NumberFormatException nfe) {
+                return FormValidation.error("Please fill-in a valid Xmx value");
+            }
+            return FormValidation.ok();
+        }
+        
+        /**
+         * Performs on-the-fly validation of the form field 'Min Mark Threshold 
+         * For Stable'.
+         *
+         * @param value This parameter receives the value that the user has
+         * typed.
+         * @return Indicates the outcome of the validation. This is sent to the
+         * browser.
+         * <p>
+         * Note that returning {@link FormValidation#error(String)} does not
+         * prevent the form from being saved. It just means that a message will
+         * be displayed to the user.
+         * @throws javax.servlet.ServletException
+         * @throws IOException
+         */
         public FormValidation doCheckMinMarkThresholdForStable (@QueryParameter String value)
                 throws IOException, ServletException {
             
@@ -420,6 +482,21 @@ public class TanaguruRunnerBuilder extends Builder {
             return FormValidation.ok();
         }
         
+        /**
+         * Performs on-the-fly validation of the form field 'Max Failed 
+         * Occurences For Stable'.
+         *
+         * @param value This parameter receives the value that the user has
+         * typed.
+         * @return Indicates the outcome of the validation. This is sent to the
+         * browser.
+         * <p>
+         * Note that returning {@link FormValidation#error(String)} does not
+         * prevent the form from being saved. It just means that a message will
+         * be displayed to the user.
+         * @throws javax.servlet.ServletException
+         * @throws IOException
+         */
         public FormValidation doCheckMaxFailedOccurencesForStable (@QueryParameter String value)
                 throws IOException, ServletException {
             

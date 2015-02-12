@@ -42,6 +42,7 @@ public class TanaguruRunner {
     private final String referential;
     private final String level;
     private final String displayPort;
+    private final String xmxValue;
     private final File contextDir;
     private final BuildListener listener;
     
@@ -64,6 +65,7 @@ public class TanaguruRunner {
             File contextDir,
             String firefoxPath,
             String displayPort,
+            String xmxValue,
             BuildListener listener) {
         this.tgScriptName = tgScriptName;    
         this.scenario = scenario;
@@ -74,6 +76,7 @@ public class TanaguruRunner {
         this.firefoxPath = firefoxPath;
         this.displayPort = displayPort;
         this.contextDir = contextDir;
+        this.xmxValue = xmxValue;
         this.listener = listener;
     }
 
@@ -87,6 +90,7 @@ public class TanaguruRunner {
                 "-r", referential,
                 "-l", level,
                 "-d", displayPort,
+                "-x", xmxValue,
                 "-t", "Scenario",
                 scenarioFile.getAbsolutePath());
 
