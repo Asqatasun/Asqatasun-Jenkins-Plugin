@@ -81,8 +81,16 @@ public class TanaguruRunner {
     }
 
     public void callTanaguruService() throws IOException, InterruptedException {
-        File logFile = createTempFile("log-" + new Random().nextInt()+".log", "");
-        File scenarioFile = createTempFile(scenarioName+"_#"+buildNumber, scenario);
+        File logFile = 
+                TanaguruRunnerBuilder.createTempFile(
+                        contextDir,
+                        "log-" + new Random().nextInt()+".log", 
+                        "");
+        File scenarioFile = 
+                TanaguruRunnerBuilder.createTempFile(
+                        contextDir,
+                        scenarioName+"_#"+buildNumber, 
+                        TanaguruRunnerBuilder.forceVersion1ToScenario(scenario));
 
         ProcessBuilder pb = new ProcessBuilder(
                 tgScriptName,
@@ -138,24 +146,4 @@ public class TanaguruRunner {
         return toString();
     }
 
-    /**
-     * Create a temporary file within a temporary folder, created in the
-     * contextDir if not exists (first time)
-     * @param fileName
-     * @param fileContent
-     * @return
-     * @throws IOException 
-     */
-    private File createTempFile(String fileName, String fileContent) throws IOException {
-        File contextDirTemp = new File (contextDir.getAbsolutePath()+"/tmp");
-        if (!contextDirTemp.exists()) {
-            if (contextDirTemp.mkdir()) {
-                contextDirTemp.setExecutable(true);
-                contextDirTemp.setWritable(true);
-            }
-        }
-        File tempFile = new File(contextDirTemp.getAbsolutePath()+"/"+fileName);
-        FileUtils.writeStringToFile(tempFile, fileContent);
-        return tempFile;
-    }
 }

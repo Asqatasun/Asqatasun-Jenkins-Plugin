@@ -214,7 +214,7 @@ public class TanaguruRunnerBuilder extends Builder {
             String projectName) throws IOException, InterruptedException {
         
         File insertProcedureFile = 
-                createTempFile(
+                TanaguruRunnerBuilder.createTempFile(
                         contextDir, 
                         SQL_PROCEDURE_SCRIPT_NAME,
                         IOUtils.toString(getClass().getResourceAsStream(SQL_PROCEDURE_NAME)));
@@ -228,7 +228,7 @@ public class TanaguruRunnerBuilder extends Builder {
             .replace("$procedureFileName", TMP_FOLDER_NAME+SQL_PROCEDURE_SCRIPT_NAME);
 
         File insertActFile = 
-                createTempFile(
+                TanaguruRunnerBuilder.createTempFile(
                         contextDir, 
                         INSERT_ACT_SCRIPT_NAME,
                         script);
@@ -238,7 +238,7 @@ public class TanaguruRunnerBuilder extends Builder {
                 TanaguruInstallation.get().getTanaguruLogin(),
                 projectName,
                 scenarioName,
-                scenario,
+                TanaguruRunnerBuilder.forceVersion1ToScenario(scenario.replaceAll("'", "'\"'\"'")),
                 tanaguruRunner.auditId);
 
         File logFile = createTempFile(contextDir, "log-" + new Random().nextInt()+ ".log","");
@@ -313,12 +313,13 @@ public class TanaguruRunnerBuilder extends Builder {
     /**
      * Create a temporary file within a temporary folder, created in the
      * contextDir if not exists (first time)
+     * @param contextDir
      * @param fileName
      * @param fileContent
      * @return
      * @throws IOException 
      */
-    private File createTempFile(File contextDir, String fileName, String fileContent) throws IOException {
+    public static File createTempFile(File contextDir, String fileName, String fileContent) throws IOException {
         File contextDirTemp = new File (contextDir.getAbsolutePath()+"/tmp");
         if (!contextDirTemp.exists()) {
             if (contextDirTemp.mkdir()) {
@@ -333,6 +334,17 @@ public class TanaguruRunnerBuilder extends Builder {
             tempFile.setWritable(true);
         }
         return tempFile;
+    }
+    
+    /**
+     * Change on-the-fly version of se-builder scenario from '2' to '1' to
+     * ensure its compatibility 
+     * @param scenario
+     * @return the updated scenario
+     */
+    public static String forceVersion1ToScenario(String scenario)  {
+        return scenario.replace("\"formatVersion\": 2", "\"formatVersion\":1")
+                    .replace("\"formatVersion\":2", "\"formatVersion\":1");
     }
     
     @Override
@@ -383,17 +395,16 @@ public class TanaguruRunnerBuilder extends Builder {
             if (value.length() == 0) {
                 return FormValidation.error("Please fill-in a not empty scenario");
             }
-            String scenario = value.replace("\"formatVersion\": 2", "\"formatVersion\":1")
-                                   .replace("\"formatVersion\":2", "\"formatVersion\":1");
-          try {
-            IO.read(scenario);
-          } catch (IOException ex) {
-              return FormValidation.error("Please fill-in a valid scenario");
-          } catch (ScriptFactory.SuiteException ex) {
-              return FormValidation.error("Please fill-in a valid scenario");
-          } catch (org.json.JSONException ex) {
-              return FormValidation.error("Please fill-in a valid scenario");
-          }
+            
+            try {
+              IO.read(TanaguruRunnerBuilder.forceVersion1ToScenario(value));
+            } catch (IOException ex) {
+                return FormValidation.error("Please fill-in a valid scenario");
+            } catch (ScriptFactory.SuiteException ex) {
+                return FormValidation.error("Please fill-in a valid scenario");
+            } catch (org.json.JSONException ex) {
+                return FormValidation.error("Please fill-in a valid scenario");
+            }
             return FormValidation.ok();
         }
         
