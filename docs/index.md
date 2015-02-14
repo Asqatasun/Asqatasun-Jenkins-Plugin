@@ -1,6 +1,6 @@
 # Tanaguru Jekins Plugin
 
-This project is the *Jenkins plugin* of Tanaguru. 
+This project is the **Jenkins plugin** of Tanaguru. 
 
 (If you are only interested in testing web accessibility in a graphical environment,
 please go to [Tanaguru Documentation](http://tanaguru.readthedocs.org/))
@@ -12,6 +12,8 @@ build process (for instance just after the unit tests and functional tests).
 
 The Jenkins plugin of Tanaguru is opensource (AGPL license).
 
+@@@ add an image to make this more sexy :)
+
 ## Problem & solution
 
 You already have a QA platform (Jenkins) to build and test your app. Different kinds of 
@@ -19,10 +21,10 @@ tests are performed thanks to various Jenkins plugins (unit tests, functional
 tests, smoke tests, performance tests...). 
 
 For accessibility testing, your staff uses some automated tools and human tests, but
-you would like to have a stack a basic accessibility tests done in a *fully automated and integrated*
+you would like to have a stack of basic accessibility tests done in a **fully automated and integrated**
 fashion. You know this is not sufficient to have a full compliance to accessibility,
 but this is a good starting point to seamlessly increase the accessibility level of your app
-(and by the way the accessibility skills of your dev team).
+(and by the way the accessibility skills of your dev team ;) ).
 
 Tanaguru Jenkins plugin is meant to "mecanize" the tests provided by Tanaguru.
 
@@ -33,10 +35,12 @@ Tanaguru Jenkins plugin is meant to "mecanize" the tests provided by Tanaguru.
 * have stable or broken build depending on a given level of acceptance 
 (for instance, stable = at least 80% of tests are OK)
 * have a centralized control panel in Jenkins
-* generate graphs of various metrics including:
-    * Tanaguru Meter (the performance score of accessibility)
-    * number of Passed / Failed / Not Applicatble tests
-    * number of occurrences of failed tests
+
+You may also generate graphs of various metrics including:
+
+* Tanaguru Meter (the performance score of accessibility)
+* number of Passed / Failed / Not Applicatble tests
+* number of occurrences of failed tests
 
 All audits ran can also be viewed in detail within Tanaguru web application, easing the
 identification of given errors.
