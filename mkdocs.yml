@@ -1,0 +1,9 @@
+site_name: Tanaguru Jenkins plugin
+pages:
+- ['index.md', 'Home']
+- ['install-doc.md', 'Installation']
+- ['graphs.md', 'Graphs creation and customisation']
+- ['developer-doc.md', 'Developer doc']
+
+theme: readthedocs
+repo_url: https://github.com/Tanaguru/jenkins-tanaguru-plugin
