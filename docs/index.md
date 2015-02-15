@@ -12,7 +12,7 @@ build process (for instance just after the unit tests and functional tests).
 
 The Jenkins plugin of Tanaguru is opensource (AGPL license).
 
-@@@ add an image to make this more sexy :)
+![](Images/screenshot_20150215_TANAGURU_jenkins_home_highlight.png)
 
 ## Problem & solution
 
@@ -22,25 +22,27 @@ tests, smoke tests, performance tests...).
 
 For accessibility testing, your staff uses some automated tools and human tests, but
 you would like to have a stack of basic accessibility tests done in a **fully automated and integrated**
-fashion. You know this is not sufficient to have a full compliance to accessibility,
-but this is a good starting point to seamlessly increase the accessibility level of your app
+fashion.
+
+You know this is not sufficient to have a full compliance to accessibility,
+but this is a **good starting point to seamlessly increase the accessibility level** of your app
 (and by the way the accessibility skills of your dev team ;) ).
 
-Tanaguru Jenkins plugin is meant to "mecanize" the tests provided by Tanaguru.
+Tanaguru Jenkins plugin is meant to *mecanize* the tests provided by Tanaguru.
 
 ## Features
 
-* leverage strong level of automation provided by Tanaguru
-* benefit from highly reliable tests of Tanaguru
-* have stable or broken build depending on a given level of acceptance 
+* Leverage strong level of automation provided by Tanaguru
+* Benefit from highly reliable tests of Tanaguru
+* Have stable or broken build depending on a given level of acceptance 
 (for instance, stable = at least 80% of tests are OK)
-* have a centralized control panel in Jenkins
+* Have a centralized control panel in Jenkins
 
 You may also generate graphs of various metrics including:
 
 * Tanaguru Meter (the performance score of accessibility)
-* number of Passed / Failed / Not Applicatble tests
-* number of occurrences of failed tests
+* Number of Passed / Failed / Not Applicatble tests
+* Number of occurrences of failed tests
 
 All audits ran can also be viewed in detail within Tanaguru web application, easing the
 identification of given errors.
