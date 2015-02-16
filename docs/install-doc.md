@@ -15,11 +15,11 @@ One single host carries the whole stack (Jenkins, Tanaguru, MySQL).
 
 ### Two of more hosts
 
-If you have multiple different Jenkins and want to use only one uniq Tanaguru to
+If you have multiple Jenkins and want to use only one uniq Tanaguru to
 view the details of an audit, you can :
 
 * have a Tanaguru CLI (Command Line Interface) installed on the Jenkins host,
-* have a full Tanaguru (CLI + Webapp) on another host,
+* have a full Tanaguru on another host,
 * and have both Tanaguru share the same MySQL database.
 
 ![](Images/Tanaguru-Jenkins-Network-architecture-multiple-hosts.svg)
@@ -29,10 +29,11 @@ view the details of an audit, you can :
 * Jenkins 1.500+ on an Ubuntu Linux box
 * Java 7
 * XVFB package (see below)
-* Firefox ESR (see below)
-* Tanaguru 3.0.4+ Command Line Interface (see below)
+* Tanaguru 3.0.4+ (see below)
 
 ### XVFB
+
+This is the Xvfb used for Jenkins (not the one used for Tanaguru)
 
 ```bash
 sudo aptitude install xvfb
@@ -51,8 +52,8 @@ Add the following content to the xvfb startup script.
 
 set -e
 
-RUN_AS_USER=tomcat6
-OPTS=":99 -screen 1 1024x768x24 -nolisten tcp"
+RUN_AS_USER=jenkins                             # the user is jenkins
+OPTS=":98 -screen 1 1024x768x24 -nolisten tcp"  # the port is 98 
 XVFB_DIR=/usr/bin
 PIDFILE=/var/run/xvfb
 
@@ -91,11 +92,21 @@ sudo chmod +x /etc/init.d/xvfb
 sudo /etc/init.d/xvfb start
 ```
 
-Configure xvfb to run at startup:
+Configure Xvfb to run at startup:
 
 ```bash
 sudo update-rc.d xvfb defaults
 ```
+
+**Note ** : if you are on a single host installation, you will have two Xvfb : one for Jenkins, another one for Tanaguru.
+
+### Tanaguru
+
+* Single host install : [Install Tanaguru ](http://tanaguru.readthedocs.org/).
+* Multiple hosts install:
+    * we assume you already have a full Tanaguru installed with given Mysql database
+    * [Install Tanaguru Command Line](http://tanaguru.readthedocs.org/) on the 
+Jenkins host, and configure it to use the same MySql database
 
 ## Installation
 
