@@ -110,6 +110,16 @@ Jenkins host, and configure it to use the same MySql database
 
 ## Installation
 
+Grab the [Tanaguru Jenkins plugin (.hpi, ~500kb)](http://download.tanaguru.org/Tanaguru-jenkins-plugin/tanaguru-jenkins-plugin-latest.hpi)
+
+Upload the plugin. Go to Manage Jenkins > Manage plugins
+
+![](Images/screenshot_20150216_TANAGURU_jenkins_manage_plugins.png)
+
+Go to Advanced tab and upload the .hpi file
+
+![](Images/screenshot_20150216_TANAGURU_jenkins_manage_plugins_advanced_tab_highlight.png)
+
 @@@
 
 ### Configuration
