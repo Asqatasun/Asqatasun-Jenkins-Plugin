@@ -102,11 +102,24 @@ sudo update-rc.d xvfb defaults
 
 ### Tanaguru
 
-* Single host install : [Install Tanaguru ](http://tanaguru.readthedocs.org/).
-* Multiple hosts install:
-    * we assume you already have a full Tanaguru installed with given Mysql database
-    * [Install Tanaguru Command Line](http://tanaguru.readthedocs.org/) on the 
+#### Single host install
+
+[Install Tanaguru ](http://tanaguru.readthedocs.org/).
+
+#### Multiple hosts install
+
+* we assume you already have a full Tanaguru installed with agiven Mysql database
+* [Install Tanaguru Command Line](http://tanaguru.readthedocs.org/en/develop/prerequisites-cli-doc/) on the 
 Jenkins host, and configure it to use the same MySql database
+
+Let `TANAGURU_CLI_DIR` be the directory where Tanaguru Cli is installed (for 
+instance `/opt/tanaguru-cli/`, containing the `bin/` `conf/` `lib/` `logs/` directories)
+
+Run:
+
+```bash
+sudo chown -R jenkins TANAGURU_CLI_DIR
+```
 
 ## Installation
 
