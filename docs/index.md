@@ -59,7 +59,9 @@ You will find a detailed [list of accessibility tests in Tanaguru Documentation]
 
 ## Installation and documentation
 
+* [Network architecture](network-architecture.md)
 * [Installation doc](install-doc.md)
+* [Configuration](configuration.md)
 * [Graphs creation and customisation](graphs.md)
 * [Developer doc (how to build, to contribute)](developer-doc.md)
 
