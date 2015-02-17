@@ -3,6 +3,7 @@ pages:
 - ['index.md', 'Home']
 - ['network-architecture.md', 'Network Architecture']
 - ['install-doc.md', 'Installation']
+- ['configuration.md', 'Configuration']
 - ['graphs.md', 'Graphs creation and customisation']
 - ['developer-doc.md', 'Developer doc']
 
