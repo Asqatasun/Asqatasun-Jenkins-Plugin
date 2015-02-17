@@ -12,7 +12,7 @@
 
 Available:
 
-* either from the available plugins
+* either from the *Available plugins*
 * or from [plot plugin page](https://wiki.jenkins-ci.org/display/JENKINS/Plot+Plugin)
 
 
@@ -121,7 +121,7 @@ Go to Advanced tab and upload the .hpi file
 If you ever had played with Tanaguru CLI before, please run:
 
 ```bash
-@@@ sudo rm -rf  /tmp/org.hibernate.cache.*
+sudo rm -rf  /tmp/org.hibernate.cache.*
 ```
 
 ## Next step
