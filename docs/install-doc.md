@@ -2,10 +2,19 @@
 
 ## Prerequesites
 
-* Jenkins 1.500+ on an Ubuntu Linux box
 * Java 7
+* Jenkins 1.500+ on an Ubuntu Linux box
+* Jenkins Plot Plugin  
 * XVFB package (see below)
 * Tanaguru 3.0.4+ (see below)
+
+### Plot PLugin
+
+Available:
+
+* either from the available plugins
+* or from [plot plugin page](https://wiki.jenkins-ci.org/display/JENKINS/Plot+Plugin)
+
 
 ### XVFB
 
@@ -108,6 +117,12 @@ Upload the plugin. Go to Manage Jenkins > Manage plugins
 Go to Advanced tab and upload the .hpi file
 
 ![](Images/screenshot_20150216_TANAGURU_jenkins_manage_plugins_advanced_tab_highlight.png)
+
+If you ever had played with Tanaguru CLI before, please run:
+
+```bash
+@@@ sudo rm -rf  /tmp/org.hibernate.cache.*
+```
 
 ## Next step
 
