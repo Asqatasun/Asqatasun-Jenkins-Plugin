@@ -24,7 +24,7 @@ package jenkins.plugins.tanaguru;
 import hudson.model.BuildListener;
 import java.io.File;
 import java.io.IOException;
-import java.lang.ProcessBuilder.Redirect;
+import java.io.PrintStream;
 import java.util.Random;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
@@ -99,47 +99,62 @@ public class TanaguruRunner {
                 "-l", level,
                 "-d", displayPort,
                 "-x", xmxValue,
+                "-o", logFile.getAbsolutePath(),
                 "-t", "Scenario",
                 scenarioFile.getAbsolutePath());
 
         pb.directory(contextDir);
         pb.redirectErrorStream(true);
-        pb.redirectOutput(Redirect.appendTo(logFile));
         Process p = pb.start();
         p.waitFor();
         
-        listener.getLogger().println(FileUtils.readFileToString(logFile));
-        
-        extractData(logFile);
+        extractDataAndPrintOut(logFile, listener.getLogger());
         
         FileUtils.deleteQuietly(logFile);
         FileUtils.deleteQuietly(scenarioFile);
     }
 
-    public void extractData(File logFile) throws IOException {
+    /**
+     * 
+     * @param logFile
+     * @param ps
+     * @throws IOException 
+     */
+    public void extractDataAndPrintOut(File logFile, PrintStream ps) throws IOException {
+        ps.println("");
         for (String line : FileUtils.readLines(logFile)) {
             if (StringUtils.startsWith(line, "Subject")) {
-                break;
-            }
-            if (StringUtils.startsWith(line, "RawMark")) {
+                ps.println("");
+                ps.println(line);
+            } else if (StringUtils.startsWith(line, "Audit terminated")) {
+                ps.println(line);
+            } else if (StringUtils.startsWith(line, "RawMark")) {
+                ps.println(line.replace("RawMark", "Mark"));
                 mark = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).replaceAll("%", "").trim();
             } else if (StringUtils.startsWith(line, "Nb Passed")) {
+                ps.println(line); 
                 nbPassed = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
             } else if (StringUtils.startsWith(line, "Nb Failed test")) {
+                ps.println(line);
                 nbFailed = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
             } else if (StringUtils.startsWith(line, "Nb Failed occurences")) {
+                ps.println(line);
                 nbFailedOccurences = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
             } else if (StringUtils.startsWith(line, "Nb Pre-qualified")) {
+                ps.println(line);
                 nbNmi = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
             } else if (StringUtils.startsWith(line, "Nb Not Applicable")) {
+                ps.println(line);
                 nbNa = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
             } else if (StringUtils.startsWith(line, "Nb Not Tested")) {
+                ps.println(line);
                 nbNt = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
             } else if (StringUtils.startsWith(line, "Audit Id")) {
+                ps.println(line);
                 auditId = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
             }
-            
         }
+        ps.println("");
     }
 
     public String outputTanaguruResults() {

@@ -44,7 +44,6 @@ import org.kohsuke.stapler.QueryParameter;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
-import java.util.Random;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
@@ -241,17 +240,14 @@ public class TanaguruRunnerBuilder extends Builder {
                 TanaguruRunnerBuilder.forceVersion1ToScenario(scenario.replaceAll("'", "'\"'\"'")),
                 tanaguruRunner.auditId);
 
-        File logFile = createTempFile(contextDir, "log-" + new Random().nextInt()+ ".log","");
-        
         pb.directory(contextDir);
         pb.redirectErrorStream(true);
-        pb.redirectOutput(ProcessBuilder.Redirect.appendTo(logFile));
+
         Process p = pb.start();
         p.waitFor();
 
         FileUtils.deleteQuietly(insertActFile);
         FileUtils.deleteQuietly(insertProcedureFile);
-        FileUtils.deleteQuietly(logFile);
     }
     
     /**
