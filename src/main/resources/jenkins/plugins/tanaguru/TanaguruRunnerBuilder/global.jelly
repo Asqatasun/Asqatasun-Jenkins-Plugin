@@ -17,7 +17,8 @@
         Creates a text field that shows the value of the "tanaguruCliPath" property.
         When submitted, it will be passed to the corresponding constructor parameter.
     -->
-    The fields with an asterisk (*) are required. 
+    <f:entry title="${%mandatoryFields}">
+    </f:entry>
     <j:set var="installation" value="${descriptor.installation}"/>
     <f:entry title="${%tanaguruCliPath}" description="${%tanaguruCliPathDescr}" field="tanaguruCliPath">
       <f:textbox />
