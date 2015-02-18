@@ -12,7 +12,7 @@
   </parent>
   <groupId>org.tanaguru</groupId>
   <artifactId>tanaguru</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <packaging>hpi</packaging>
 
   <name>Jenkins Tanaguru  Plugin</name>
@@ -25,7 +25,6 @@
       <email>jk@tanaguru.com</email>
     </developer>
   </developers>
-
   <!-- Assuming you want to host on @jenkinsci:
  <scm>
    <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
@@ -55,6 +54,9 @@
       <url>http://repo.jenkins-ci.org/public/</url>
     </pluginRepository>
   </pluginRepositories>
+  <build>
+    <finalName>jenkins-tanaguru-runner-plugin-${version}</finalName>
+  </build>
   <dependencies>
     <dependency>
       <groupId>commons-io</groupId>
