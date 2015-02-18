@@ -5,7 +5,7 @@
 
     See global.jelly for a general discussion about jelly script.
   -->
-
+  The fields with an asterisk (*) are required. 
   <f:entry title="${%scenarioName}" field="scenarioName">
     <f:textbox />
   </f:entry>
