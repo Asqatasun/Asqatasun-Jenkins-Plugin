@@ -7,5 +7,5 @@
 
 ## Let's talk between techies
 
-* http://discuss.tanaguru.org/
-* https://github.com/Tanaguru/jenkins-tanaguru-plugin
+* [Tanaguru Discussion space](http://discuss.tanaguru.org/)
+* [Tanaguru Jenkins plugin on Github](https://github.com/Tanaguru/jenkins-tanaguru-plugin)
