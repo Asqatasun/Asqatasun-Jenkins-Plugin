@@ -16,7 +16,7 @@
   </f:entry>
 
   <f:entry title="${%refAndLevel}">
-    <f:select field="refAndLevel"/>
+    <f:select field="refAndLevel" default="Rgaa30;Ar"/>
   </f:entry>
   <f:entry title="${%minMarkThresholdForStable}" field="minMarkThresholdForStable" help="/plugin/tanaguru/help-mark-threshold.html">
     <f:textbox default="100" />
