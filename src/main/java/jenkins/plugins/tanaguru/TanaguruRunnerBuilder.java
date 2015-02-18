@@ -181,7 +181,8 @@ public class TanaguruRunnerBuilder extends Builder {
                         getDescriptor().getFirefoxPath(), 
                         getDescriptor().getDisplayPort(),
                         StringUtils.isBlank(xmxValue)? DEFAULT_XMX_VALUE : xmxValue,
-                        listener);
+                        listener,
+                        getDescriptor().getIsDebug());
 
         tanaguruRunner.callTanaguruService();
         
@@ -363,6 +364,7 @@ public class TanaguruRunnerBuilder extends Builder {
         private String pathToCli = "";
         private String displayPort = "";
         private String firefoxPath = "";
+        private boolean isDebug = false;
         private TanaguruInstallation tanaguruInstallation;
         
         /**
@@ -573,6 +575,7 @@ public class TanaguruRunnerBuilder extends Builder {
                         formData.getString("databasePassword"),
                         formData.getString("tanaguruLogin")
                     );
+            isDebug = formData.getBoolean("isDebug");
 
             save();
             return super.configure(req, formData);
@@ -597,6 +600,13 @@ public class TanaguruRunnerBuilder extends Builder {
          */
         public String getFirefoxPath() {
             return firefoxPath;
+        }
+        
+        /**
+         * @return whether the debug mode is activated
+         */
+        public boolean getIsDebug() {
+            return isDebug;
         }
 
         /**

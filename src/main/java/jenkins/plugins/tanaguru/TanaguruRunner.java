@@ -45,6 +45,7 @@ public class TanaguruRunner {
     private final String xmxValue;
     private final File contextDir;
     private final BuildListener listener;
+    private final boolean isDebug;
     
     public String auditId;
     public String mark;
@@ -66,7 +67,8 @@ public class TanaguruRunner {
             String firefoxPath,
             String displayPort,
             String xmxValue,
-            BuildListener listener) {
+            BuildListener listener,
+            boolean isDebug) {
         this.tgScriptName = tgScriptName;    
         this.scenario = scenario;
         this.scenarioName = scenarioName;
@@ -78,6 +80,7 @@ public class TanaguruRunner {
         this.contextDir = contextDir;
         this.xmxValue = xmxValue;
         this.listener = listener;
+        this.isDebug = isDebug;
     }
 
     public void callTanaguruService() throws IOException, InterruptedException {
@@ -110,7 +113,10 @@ public class TanaguruRunner {
         
         extractDataAndPrintOut(logFile, listener.getLogger());
         
-        FileUtils.deleteQuietly(logFile);
+        if (!isDebug) {
+            FileUtils.deleteQuietly(logFile);
+        }
+        
         FileUtils.deleteQuietly(scenarioFile);
     }
 
