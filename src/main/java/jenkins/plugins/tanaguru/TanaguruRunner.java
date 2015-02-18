@@ -122,6 +122,13 @@ public class TanaguruRunner {
      */
     public void extractDataAndPrintOut(File logFile, PrintStream ps) throws IOException {
         ps.println("");
+        boolean isFirstMark = true;
+        boolean isFirstNbPassed = true;
+        boolean isFirstNbFailed = true;
+        boolean isFirstNbFailedOccurences = true;
+        boolean isFirstNbNmi = true;
+        boolean isFirstNbNa = true;
+        boolean isFirstNbNt = true;
         for (String line : FileUtils.readLines(logFile)) {
             if (StringUtils.startsWith(line, "Subject")) {
                 ps.println("");
@@ -130,25 +137,46 @@ public class TanaguruRunner {
                 ps.println(line);
             } else if (StringUtils.startsWith(line, "RawMark")) {
                 ps.println(line.replace("RawMark", "Mark"));
-                mark = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).replaceAll("%", "").trim();
+                if (isFirstMark) {
+                    mark = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).replaceAll("%", "").trim();
+                    isFirstMark = false;
+                }
             } else if (StringUtils.startsWith(line, "Nb Passed")) {
                 ps.println(line); 
-                nbPassed = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+                if (isFirstNbPassed) {
+                  nbPassed = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+                    isFirstNbPassed = false;
+                }
             } else if (StringUtils.startsWith(line, "Nb Failed test")) {
                 ps.println(line);
-                nbFailed = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+                if (isFirstNbFailed) {
+                   nbFailed = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+                   isFirstNbFailed = false;
+                }
             } else if (StringUtils.startsWith(line, "Nb Failed occurences")) {
                 ps.println(line);
-                nbFailedOccurences = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+                if (isFirstNbFailedOccurences) {
+                    nbFailedOccurences = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+                    isFirstNbFailedOccurences = false;
+                }
             } else if (StringUtils.startsWith(line, "Nb Pre-qualified")) {
                 ps.println(line);
-                nbNmi = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+                if (isFirstNbNmi) {
+                    nbNmi = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+                    isFirstNbNmi= false;
+                }
             } else if (StringUtils.startsWith(line, "Nb Not Applicable")) {
                 ps.println(line);
-                nbNa = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+                if (isFirstNbNa) {
+                    nbNa = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+                    isFirstNbNa = false;
+                }
             } else if (StringUtils.startsWith(line, "Nb Not Tested")) {
                 ps.println(line);
-                nbNt = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+                if (isFirstNbNt) {
+                    nbNt = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+                    isFirstNbNt = false;
+                }
             } else if (StringUtils.startsWith(line, "Audit Id")) {
                 ps.println(line);
                 auditId = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
