@@ -169,10 +169,12 @@ public class TanaguruRunnerBuilder extends Builder {
             return false;
         }
         
+        String spaceEscapedScenarioName=scenarioName.replace(' ','_');
+        
         TanaguruRunner tanaguruRunner=
                 new TanaguruRunner(
                         TG_SCRIPT_NAME,
-                        scenarioName,
+                        spaceEscapedScenarioName,
                         scenario, 
                         build.getNumber(),
                         refAndLevel.split(";")[0],
@@ -190,7 +192,7 @@ public class TanaguruRunnerBuilder extends Builder {
         
         linkToTanaguruWebapp(
                 tanaguruRunner, 
-                scenarioName, 
+                spaceEscapedScenarioName, 
                 scenario, 
                 contextDir, 
                 build.getProject().getDisplayName());
@@ -236,8 +238,8 @@ public class TanaguruRunnerBuilder extends Builder {
         ProcessBuilder pb = new ProcessBuilder(
                 TMP_FOLDER_NAME+INSERT_ACT_SCRIPT_NAME,
                 TanaguruInstallation.get().getTanaguruLogin(),
-                projectName,
-                scenarioName,
+                projectName.replaceAll("'", "'\"'\"'"),
+                scenarioName.replaceAll("'", "'\"'\"'"),
                 TanaguruRunnerBuilder.forceVersion1ToScenario(scenario.replaceAll("'", "'\"'\"'")),
                 tanaguruRunner.auditId);
 
