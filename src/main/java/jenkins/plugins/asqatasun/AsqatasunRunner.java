@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Random;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * 
@@ -108,16 +108,18 @@ public class AsqatasunRunner {
 
         pb.directory(contextDir);
         pb.redirectErrorStream(true);
+        listener.getLogger().print("Launching asqatasun runner with the following options : ");
+        listener.getLogger().print(pb.command());
         Process p = pb.start();
         p.waitFor();
         
         extractDataAndPrintOut(logFile, listener.getLogger());
         
         if (!isDebug) {
-            FileUtils.deleteQuietly(logFile);
+            FileUtils.forceDelete(logFile);
         }
         
-        FileUtils.deleteQuietly(scenarioFile);
+        FileUtils.forceDelete(scenarioFile);
     }
 
     /**
@@ -135,7 +137,8 @@ public class AsqatasunRunner {
         boolean isFirstNbNmi = true;
         boolean isFirstNbNa = true;
         boolean isFirstNbNt = true;
-        for (String line : FileUtils.readLines(logFile)) {
+        for (Object obj : FileUtils.readLines(logFile)) {
+            String line = (String)obj;
             if (StringUtils.startsWith(line, "Subject")) {
                 ps.println("");
                 ps.println(line);

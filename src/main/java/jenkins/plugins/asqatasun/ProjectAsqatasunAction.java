@@ -29,7 +29,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import jenkins.model.Jenkins;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -62,7 +62,8 @@ public class ProjectAsqatasunAction implements ProminentProjectAction {
         String webappUrl = Jenkins.getInstance().getDescriptorByType(Asqatasun.DescriptorImpl.class).getInstallation().getWebappUrl();
         if (project.getLastBuild() != null) {
             try {
-                for (String line : FileUtils.readLines(project.getLastBuild().getLogFile())) {
+                for (Object obj : FileUtils.readLines(project.getLastBuild().getLogFile())) {
+                    String line = (String)obj;
                     if (StringUtils.startsWith(line, "Audit Id")) {
                         return buildAuditResultUrl(line, webappUrl);
                     }

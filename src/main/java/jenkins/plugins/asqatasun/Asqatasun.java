@@ -44,9 +44,10 @@ import org.kohsuke.stapler.QueryParameter;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
+import java.io.PrintStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * <p>
@@ -185,8 +186,12 @@ public class Asqatasun extends Builder {
                         StringUtils.isBlank(xmxValue)? DEFAULT_XMX_VALUE : xmxValue,
                         listener,
                         getDescriptor().getIsDebug());
-
+        
+        listener.getLogger().print("call runner service");
+        
         asqatasunRunner.callService();
+        
+        listener.getLogger().print("Analysis terminated. Now Linking To Workspace");
         
         writeResultToWorkspace(asqatasunRunner, build.getWorkspace());
         
@@ -195,6 +200,8 @@ public class Asqatasun extends Builder {
                 spaceEscapedScenarioName, 
                 scenario, 
                 contextDir, 
+                listener.getLogger(),
+                getDescriptor().getIsDebug(),
                 build.getProject().getDisplayName());
         
         setBuildStatus(build, asqatasunRunner);
@@ -213,6 +220,8 @@ public class Asqatasun extends Builder {
             String scenarioName,
             String scenario,
             File contextDir,
+            PrintStream printStream,
+            boolean isDebug,
             String projectName) throws IOException, InterruptedException {
         
         File insertProcedureFile = 
@@ -220,7 +229,10 @@ public class Asqatasun extends Builder {
                         contextDir, 
                         SQL_PROCEDURE_SCRIPT_NAME,
                         IOUtils.toString(getClass().getResourceAsStream(SQL_PROCEDURE_NAME)));
-        
+        if (isDebug) {
+            printStream.print("insertProcedureFile created : "+ insertProcedureFile.getAbsolutePath());
+            printStream.print("with content : "+ FileUtils.readFileToString(insertProcedureFile));
+        }
         String script = IOUtils.toString(getClass().getResourceAsStream(INSERT_ACT_NAME))
             .replace("$host", AsqatasunInstallation.get().getDatabaseHost())
             .replace("$user", AsqatasunInstallation.get().getDatabaseLogin())
@@ -249,8 +261,8 @@ public class Asqatasun extends Builder {
         Process p = pb.start();
         p.waitFor();
 
-        FileUtils.deleteQuietly(insertActFile);
-        FileUtils.deleteQuietly(insertProcedureFile);
+        FileUtils.forceDelete(insertActFile);
+        FileUtils.forceDelete(insertProcedureFile);
     }
     
     /**
@@ -287,7 +299,7 @@ public class Asqatasun extends Builder {
     private void writeValueToFile(String value, String valueType, File workspacedir) 
             throws IOException, InterruptedException{
         File ntFile = new File (workspacedir.getAbsolutePath()+"/asqatasun-"+valueType+".properties");
-        FileUtils.write(ntFile, PLOT_PLUGIN_YVALUE+value);
+        FileUtils.writeStringToFile(ntFile, PLOT_PLUGIN_YVALUE+value);
     }
     
     private void setBuildStatus(AbstractBuild build, AsqatasunRunner asqatasunRunner) {
