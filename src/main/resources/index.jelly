@@ -1,0 +1,8 @@
+<?jelly escape-by-default='true'?>
+<!--
+  This view is used to render the installed plugins page.
+-->
+<div>
+  This plugin enables to perform accessibility analysis from Asqatasun, 
+ the open-source automated accessibility (a11y) testing tool.
+</div>
