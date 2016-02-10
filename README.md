@@ -1,1 +1,7 @@
-# asqatasun-jenkins-plugin
+# Asqatasun Jenkins plugin 
+
+
+
+## License
+
+ [AGPL v3](LICENCE) 
