@@ -4,4 +4,4 @@
 
 ## License
 
- [AGPL v3](LICENCE) 
+ [AGPL v3](LICENSE) 
