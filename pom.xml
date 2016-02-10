@@ -55,7 +55,7 @@
         </pluginRepository>
     </pluginRepositories>
     <build>
-        <finalName>jenkins-asqatasun-runner-plugin-${version}</finalName>
+        <finalName>jenkins-asqatasun-runner-plugin-${project.version}</finalName>
     </build>
     <dependencies>
         <dependency>

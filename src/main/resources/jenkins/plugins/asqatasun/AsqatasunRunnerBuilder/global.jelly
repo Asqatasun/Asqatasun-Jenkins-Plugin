@@ -20,7 +20,7 @@
     <f:entry title="${%mandatoryFields}">
     </f:entry>
     <j:set var="installation" value="${descriptor.installation}"/>
-    <f:entry title="${%AsqatasunRunnerPath}" description="${%AsqatasunRunnerPathDescr}" field="AsqatasunRunnerPath">
+    <f:entry title="${%asqatasunRunnerPath}" description="${%asqatasunRunnerPathDescr}" field="asqatasunRunnerPath">
       <f:textbox />
     </f:entry>
     <f:entry title="${%displayPort}" description="${%displayPortDescr}" field="displayPort">
@@ -47,8 +47,8 @@
     <f:entry title="${%databasePassword}" field="databasePassword">
       <f:password value="${installation.databasePassword}" />
     </f:entry>
-    <f:entry title="${%login}" description="${%loginDescr}" field="login">
-      <f:textbox value="${installation.login}" />
+    <f:entry title="${%asqatasunLogin}" description="${%asqatasunLoginDescr}" field="asqatasunLogin">
+      <f:textbox value="${installation.asqatasunLogin}" />
     </f:entry>
     <f:entry title="${%isDebug}" description="${%isDebugDescr}" field="isDebug">
       <f:checkbox/>

@@ -53,7 +53,7 @@ import org.apache.commons.lang3.StringUtils;
  * <p>
  * When the user configures the project and enables this builder,
  * {@link DescriptorImpl#newInstance(StaplerRequest)} is invoked and a new
- * {@link Asqatasun} is created. The created instance is persisted
+ * {@link AsqatasunRunnerBuilder} is created. The created instance is persisted
  * to the project configuration XML by using XStream, so this allows you to use
  * instance fields (like {@link #scenarioName}) to remember the configuration.
  *
@@ -64,7 +64,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author Jérôme Kowalczyk
  */
-public class Asqatasun extends Builder {
+public class AsqatasunRunnerBuilder extends Builder {
 
     private static final String PLOT_PLUGIN_YVALUE = "YVALUE=";
     private static final String TG_SCRIPT_NAME = "bin/asqatasun.sh";
@@ -86,7 +86,7 @@ public class Asqatasun extends Builder {
 
     // Fields in config.jelly must match the parameter names in the "DataBoundConstructor"
     @DataBoundConstructor
-    public Asqatasun(
+    public AsqatasunRunnerBuilder(
             String scenarioName, 
             String scenario, 
             String refAndLevel, 
@@ -161,7 +161,7 @@ public class Asqatasun extends Builder {
         // This is where you 'build' the project.
         File contextDir = new File(getDescriptor().getAsqatasunRunnerPath());
         if (!contextDir.exists()) {
-            listener.getLogger().println("Le chemin vers le contexte d'exécution est incorrect");
+            listener.getLogger().println("Le chemin vers le contexte d'exécution est incorrect " + getDescriptor().getAsqatasunRunnerPath());
             return false;
         }
         File scriptFile = new File(getDescriptor().getAsqatasunRunnerPath()+ "/" + TG_SCRIPT_NAME);
@@ -225,7 +225,7 @@ public class Asqatasun extends Builder {
             String projectName) throws IOException, InterruptedException {
         
         File insertProcedureFile = 
-                Asqatasun.createTempFile(
+                AsqatasunRunnerBuilder.createTempFile(
                         contextDir, 
                         SQL_PROCEDURE_SCRIPT_NAME,
                         IOUtils.toString(getClass().getResourceAsStream(SQL_PROCEDURE_NAME)));
@@ -242,17 +242,17 @@ public class Asqatasun extends Builder {
             .replace("$procedureFileName", TMP_FOLDER_NAME+SQL_PROCEDURE_SCRIPT_NAME);
 
         File insertActFile = 
-                Asqatasun.createTempFile(
+                AsqatasunRunnerBuilder.createTempFile(
                         contextDir, 
                         INSERT_ACT_SCRIPT_NAME,
                         script);
         
         ProcessBuilder pb = new ProcessBuilder(
                 TMP_FOLDER_NAME+INSERT_ACT_SCRIPT_NAME,
-                AsqatasunInstallation.get().getLogin(),
+                AsqatasunInstallation.get().getAsqatasunLogin(),
                 projectName.replaceAll("'", "'\"'\"'"),
                 scenarioName.replaceAll("'", "'\"'\"'"),
-                Asqatasun.forceVersion1ToScenario(scenario.replaceAll("'", "'\"'\"'")),
+                AsqatasunRunnerBuilder.forceVersion1ToScenario(scenario.replaceAll("'", "'\"'\"'")),
                 asqatasunRunner.auditId);
 
         pb.directory(contextDir);
@@ -369,7 +369,7 @@ public class Asqatasun extends Builder {
     }
 
     /**
-     * Descriptor for {@link Asqatasun}. Used as a singleton. The
+     * Descriptor for {@link AsqatasunRunnerBuilder}. Used as a singleton. The
      * class is marked as public so that it can be accessed from views.
      */
     @Extension // This indicates to Jenkins that this is an implementation of an extension point.
@@ -409,7 +409,7 @@ public class Asqatasun extends Builder {
             }
             
             try {
-              IO.read(Asqatasun.forceVersion1ToScenario(value));
+              IO.read(AsqatasunRunnerBuilder.forceVersion1ToScenario(value));
             } catch (IOException ex) {
                 return FormValidation.error("Please fill-in a valid scenario");
             } catch (ScriptFactory.SuiteException ex) {
@@ -576,7 +576,7 @@ public class Asqatasun extends Builder {
         @Override
         public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
 
-            pathToRunner = formData.getString("asqatasunCliPath");
+            pathToRunner = formData.getString("asqatasunRunnerPath");
             displayPort = formData.getString("displayPort");
             firefoxPath = formData.getString("firefoxPath");
             asqatasunInstallation = 

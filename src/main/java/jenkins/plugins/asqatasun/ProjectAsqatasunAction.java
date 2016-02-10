@@ -59,7 +59,7 @@ public class ProjectAsqatasunAction implements ProminentProjectAction {
 
     @Override
     public String getUrlName() {
-        String webappUrl = Jenkins.getInstance().getDescriptorByType(Asqatasun.DescriptorImpl.class).getInstallation().getWebappUrl();
+        String webappUrl = Jenkins.getInstance().getDescriptorByType(AsqatasunRunnerBuilder.DescriptorImpl.class).getInstallation().getWebappUrl();
         if (project.getLastBuild() != null) {
             try {
                 for (Object obj : FileUtils.readLines(project.getLastBuild().getLogFile())) {

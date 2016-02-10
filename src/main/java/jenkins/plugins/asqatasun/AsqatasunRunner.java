@@ -85,15 +85,15 @@ public class AsqatasunRunner {
 
     public void callService() throws IOException, InterruptedException {
         File logFile = 
-                Asqatasun.createTempFile(
+                AsqatasunRunnerBuilder.createTempFile(
                         contextDir,
                         "log-" + new Random().nextInt()+".log", 
                         "");
         File scenarioFile = 
-                Asqatasun.createTempFile(
+                AsqatasunRunnerBuilder.createTempFile(
                         contextDir,
                         scenarioName+"_#"+buildNumber, 
-                        Asqatasun.forceVersion1ToScenario(scenario));
+                        AsqatasunRunnerBuilder.forceVersion1ToScenario(scenario));
 
         ProcessBuilder pb = new ProcessBuilder(
                 tgScriptName,
