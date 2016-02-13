@@ -1,13 +1,16 @@
 # Asqatasun Jenkins plugin 
 
+
+![](documentation/Images/logo/kraken.io--lossy/asqatasun-jenkins-plugin--500x268.png)
+
 This project is the **Jenkins plugin** of Asqatasun. 
 
-> If you are only interested in testing web accessibility in a graphical environment,
-> please go to [Asqatasun Documentation](http://doc.asqatasun.org/en/)
+
+> If you are only interested in testing web accessibility 
+> in a graphical environment, please go to [Asqatasun Documentation](http://doc.asqatasun.org/en/).
 
 ----
 
-@@@TODO add logo
 
 
 The Jenkins plugin of Asqatasun is dedicated to integrate the web accessibility 
