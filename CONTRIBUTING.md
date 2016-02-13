@@ -17,4 +17,10 @@ You can help in many ways:
 * When closing an issue, please *always* add a comment explaining why you are closing it.
 
 
+## Contribution to the code
+
+Please always work on `develop` branch. `Master` is meant to be directly usable in production,
+thus only contains tagged releases.
+
+
 
