@@ -27,4 +27,4 @@ view the details of an audit, you can :
 
 ## Next step
 
-Proceed to [Installation](02-install-doc.md)
+Proceed to [Installation](20-install-doc.md)
