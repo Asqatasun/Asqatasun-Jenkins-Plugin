@@ -20,7 +20,8 @@ build process (for instance just after the unit tests and functional tests).
 
 The Jenkins plugin of Asqatasun is opensource ([AGPL v3](LICENSE) license).
 
-@@@TODO add screenshot
+
+![](documentation/Images/screenshot_20160215_ASQATASUN_jenkins_home_highlight.png)
 
 
 
