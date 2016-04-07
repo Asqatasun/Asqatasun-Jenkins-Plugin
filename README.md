@@ -1,3 +1,6 @@
+[![License : AGPL v3](https://img.shields.io/badge/License-AGPL3-blue.svg)](LICENSE) 
+[![Build Status](https://travis-ci.org/Asqatasun/Asqatasun-Jenkins-Plugin.svg)](https://travis-ci.org/Asqatasun/Asqatasun-Jenkins-Plugin)
+
 # Asqatasun Jenkins plugin 
 
 
@@ -97,4 +100,3 @@ Everything is summarized in the [CONTRIBUTING](CONTRIBUTING.md) file.
  [AGPL v3](LICENSE) 
 
  
-@@@TODO Build Status - travis-ci.org
