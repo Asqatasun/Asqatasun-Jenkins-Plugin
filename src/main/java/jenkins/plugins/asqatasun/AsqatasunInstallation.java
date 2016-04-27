@@ -32,10 +32,6 @@ import org.kohsuke.stapler.DataBoundConstructor;
  */
 public class AsqatasunInstallation {
 
-    public static final AsqatasunInstallation get() {
-        return Jenkins.getInstance().getDescriptorByType(AsqatasunRunnerBuilder.DescriptorImpl.class).getInstallation();
-    }
-
     private final String webappUrl;
 
     private final String databaseHost;
@@ -62,6 +58,10 @@ public class AsqatasunInstallation {
         this.databaseLogin = databaseLogin;
         setDatabasePassword(databasePassword);
         this.asqatasunLogin = asqatasunLogin;
+    }
+
+    public static final AsqatasunInstallation get() {
+        return Jenkins.getInstance().getDescriptorByType(AsqatasunRunnerBuilder.DescriptorImpl.class).getInstallation();
     }
 
     public String getWebappUrl() {
