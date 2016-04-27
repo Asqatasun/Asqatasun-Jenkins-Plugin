@@ -332,11 +332,9 @@ public class AsqatasunRunnerBuilder extends Builder {
      */
     public static File createTempFile(File contextDir, String fileName, String fileContent) throws IOException {
         File contextDirTemp = new File (contextDir.getAbsolutePath()+"/tmp");
-        if (!contextDirTemp.exists()) {
-            if (contextDirTemp.mkdir()) {
-                contextDirTemp.setExecutable(true);
-                contextDirTemp.setWritable(true);
-            }
+        if (!contextDirTemp.exists() && contextDirTemp.mkdir()) {
+            contextDirTemp.setExecutable(true);
+            contextDirTemp.setWritable(true);
         }
         File tempFile = new File(contextDirTemp.getAbsolutePath()+"/"+fileName);
         FileUtils.writeStringToFile(tempFile, fileContent);
@@ -527,7 +525,7 @@ public class AsqatasunRunnerBuilder extends Builder {
                 return FormValidation.ok();
             }
             try {
-                int mark = Integer.valueOf(value);
+                int mark = Integer.parseInt(value);
                 if (mark > 65535) {
                   return FormValidation.error("Please fill-in a valid maximal number of failed occurences threshold");
                 }
