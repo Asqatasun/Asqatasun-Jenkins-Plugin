@@ -61,21 +61,26 @@ public class ProjectAsqatasunAction implements ProminentProjectAction {
     public String getUrlName() {
         String webappUrl = Jenkins.getInstance().getDescriptorByType(AsqatasunRunnerBuilder.DescriptorImpl.class).getInstallation().getWebappUrl();
         if (project.getLastBuild() != null) {
-            try {
-                for (Object obj : FileUtils.readLines(project.getLastBuild().getLogFile())) {
-                    String line = (String)obj;
-                    if (StringUtils.startsWith(line, "Audit Id")) {
-                        return buildAuditResultUrl(line, webappUrl);
-                    }
-                }
-            }  catch (IOException ex) {
-                Logger.getLogger(ProjectAsqatasunAction.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            return buildAuditResultUrl(webappUrl);
         }
         return webappUrl;
     }
 
-    private String buildAuditResultUrl(String line, String webappUrl) {
+    private String buildAuditResultUrl(String webappUrl) {
+        try {
+            for (Object obj : FileUtils.readLines(project.getLastBuild().getLogFile())) {
+                String line = (String)obj;
+                if (StringUtils.startsWith(line, "Audit Id")) {
+                    return doBuildAuditResultUrl(line, webappUrl);
+                }
+            }
+        }  catch (IOException ex) {
+            Logger.getLogger(ProjectAsqatasunAction.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return webappUrl;
+    }
+
+    private String doBuildAuditResultUrl(String line, String webappUrl) {
         String auditId = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
         if (StringUtils.endsWith(webappUrl, "/")) {
             return webappUrl+URL_PREFIX_RESULT+auditId;
