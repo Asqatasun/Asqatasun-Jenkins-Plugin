@@ -47,14 +47,14 @@ public class AsqatasunRunner {
     private final BuildListener listener;
     private final boolean isDebug;
     
-    public String auditId;
-    public String mark;
-    public String nbPassed;
-    public String nbFailed;
-    public String nbFailedOccurences;
-    public String nbNmi;
-    public String nbNa;
-    public String nbNt;
+    private String auditId;
+    private String mark;
+    private String nbPassed;
+    private String nbFailed;
+    private String nbFailedOccurences;
+    private String nbNmi;
+    private String nbNa;
+    private String nbNt;
     
     public AsqatasunRunner(
             String tgScriptName,
@@ -151,41 +151,23 @@ public class AsqatasunRunner {
                     isFirstMark = false;
                 }
             } else if (StringUtils.startsWith(line, "Nb Passed")) {
-                ps.println(line); 
-                if (isFirstNbPassed) {
-                  nbPassed = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
-                    isFirstNbPassed = false;
-                }
+                nbPassed = getNbStatus(ps, isFirstNbPassed, line);
+                isFirstNbPassed = false;
             } else if (StringUtils.startsWith(line, "Nb Failed test")) {
-                ps.println(line);
-                if (isFirstNbFailed) {
-                   nbFailed = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
-                   isFirstNbFailed = false;
-                }
+                nbFailed = getNbStatus(ps, isFirstNbFailed, line);
+                isFirstNbFailed = false;
             } else if (StringUtils.startsWith(line, "Nb Failed occurences")) {
-                ps.println(line);
-                if (isFirstNbFailedOccurences) {
-                    nbFailedOccurences = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
-                    isFirstNbFailedOccurences = false;
-                }
+                nbFailedOccurences = getNbStatus(ps, isFirstNbFailedOccurences, line);
+                isFirstNbFailedOccurences = false;
             } else if (StringUtils.startsWith(line, "Nb Pre-qualified")) {
-                ps.println(line);
-                if (isFirstNbNmi) {
-                    nbNmi = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
-                    isFirstNbNmi= false;
-                }
+                nbNmi = getNbStatus(ps, isFirstNbNmi, line);
+                isFirstNbNmi = false;
             } else if (StringUtils.startsWith(line, "Nb Not Applicable")) {
-                ps.println(line);
-                if (isFirstNbNa) {
-                    nbNa = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
-                    isFirstNbNa = false;
-                }
+                nbNa = getNbStatus(ps, isFirstNbNa, line);
+                isFirstNbNa = false;
             } else if (StringUtils.startsWith(line, "Nb Not Tested")) {
-                ps.println(line);
-                if (isFirstNbNt) {
-                    nbNt = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
-                    isFirstNbNt = false;
-                }
+                nbNt = getNbStatus(ps, isFirstNbNt, line);
+                isFirstNbNt = false;
             } else if (StringUtils.startsWith(line, "Audit Id")) {
                 ps.println(line);
                 auditId = StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
@@ -194,8 +176,47 @@ public class AsqatasunRunner {
         ps.println("");
     }
 
+    private String getNbStatus(PrintStream ps, boolean isFirstNb, String line) {
+        ps.println(line);
+        if (isFirstNb) {
+           return StringUtils.substring(line, StringUtils.indexOf(line, ":")+1).trim();
+        }
+        return null;
+    }
+
     public String outputAsqatasunResults() {
         return toString();
     }
 
+    public String getAuditId() {
+        return auditId;
+    }
+
+    public String getMark() {
+        return mark;
+    }
+
+    public String getNbPassed() {
+        return nbPassed;
+    }
+
+    public String getNbFailed() {
+        return nbFailed;
+    }
+
+    public String getNbFailedOccurences() {
+        return nbFailedOccurences;
+    }
+
+    public String getNbNmi() {
+        return nbNmi;
+    }
+
+    public String getNbNa() {
+        return nbNa;
+    }
+
+    public String getNbNt() {
+        return nbNt;
+    }
 }

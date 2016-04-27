@@ -76,7 +76,8 @@ public class AsqatasunRunnerBuilder extends Builder {
     private static final String INSERT_ACT_SCRIPT_NAME = "insert-act.sh";
     private static final String TMP_FOLDER_NAME = "tmp/";
     private static final String DEFAULT_XMX_VALUE = "256";
-    
+    public static final String QUOTES = "'\"'\"'";
+
     private final String scenario;
     private final String scenarioName;
     private final String refAndLevel;
@@ -250,10 +251,10 @@ public class AsqatasunRunnerBuilder extends Builder {
         ProcessBuilder pb = new ProcessBuilder(
                 TMP_FOLDER_NAME+INSERT_ACT_SCRIPT_NAME,
                 AsqatasunInstallation.get().getAsqatasunLogin(),
-                projectName.replaceAll("'", "'\"'\"'"),
-                scenarioName.replaceAll("'", "'\"'\"'"),
-                AsqatasunRunnerBuilder.forceVersion1ToScenario(scenario.replaceAll("'", "'\"'\"'")),
-                asqatasunRunner.auditId);
+                projectName.replaceAll("'", QUOTES),
+                scenarioName.replaceAll("'", QUOTES),
+                AsqatasunRunnerBuilder.forceVersion1ToScenario(scenario.replaceAll("'", QUOTES)),
+                asqatasunRunner.getAuditId());
 
         pb.directory(contextDir);
         pb.redirectErrorStream(true);
@@ -278,13 +279,13 @@ public class AsqatasunRunnerBuilder extends Builder {
         
         File workspacedir = new File(workspace.toURI());
         
-        writeValueToFile(asqatasunRunner.mark, "mark", workspacedir);
-        writeValueToFile(asqatasunRunner.nbPassed, "passed", workspacedir);
-        writeValueToFile(asqatasunRunner.nbFailed, "failed", workspacedir);
-        writeValueToFile(asqatasunRunner.nbFailedOccurences, "failedOccurences", workspacedir);
-        writeValueToFile(asqatasunRunner.nbNmi, "nmi", workspacedir);
-        writeValueToFile(asqatasunRunner.nbNa, "na", workspacedir);
-        writeValueToFile(asqatasunRunner.nbNt, "nt", workspacedir);
+        writeValueToFile(asqatasunRunner.getMark(), "mark", workspacedir);
+        writeValueToFile(asqatasunRunner.getNbPassed(), "passed", workspacedir);
+        writeValueToFile(asqatasunRunner.getNbFailed(), "failed", workspacedir);
+        writeValueToFile(asqatasunRunner.getNbFailedOccurences(), "failedOccurences", workspacedir);
+        writeValueToFile(asqatasunRunner.getNbNmi(), "nmi", workspacedir);
+        writeValueToFile(asqatasunRunner.getNbNa(), "na", workspacedir);
+        writeValueToFile(asqatasunRunner.getNbNt(), "nt", workspacedir);
     }
     
     /**
@@ -303,24 +304,36 @@ public class AsqatasunRunnerBuilder extends Builder {
     }
     
     private void setBuildStatus(AbstractBuild build, AsqatasunRunner asqatasunRunner) {
-        if ((StringUtils.isBlank(minMarkThresholdForStable) || Integer.valueOf(minMarkThresholdForStable)<0) &&
-                (StringUtils.isBlank(maxFailedOccurencesForStable) || Integer.valueOf(maxFailedOccurencesForStable)<0)) {
+        if (setBuildStatusFirstIfCondition()) {
             build.setResult(Result.SUCCESS);
             return;
         }
-        if (Integer.valueOf(minMarkThresholdForStable) > 0 &&
-                Float.valueOf(asqatasunRunner.mark) < Integer.valueOf(minMarkThresholdForStable) ) {
+        if (setBuildStatusSecondIfCondition(asqatasunRunner)) {
             build.setResult(Result.UNSTABLE);
             return;
         }
-        if (Integer.valueOf(maxFailedOccurencesForStable) > 0 && 
-                Integer.valueOf(asqatasunRunner.nbFailedOccurences) > Integer.valueOf(maxFailedOccurencesForStable)) {
+        if (setBuildStatusThirdIfCondition(asqatasunRunner)) {
             build.setResult(Result.UNSTABLE);
             return;
         }
         build.setResult(Result.SUCCESS);
     }
-    
+
+    private boolean setBuildStatusFirstIfCondition() {
+        return (StringUtils.isBlank(minMarkThresholdForStable) || Integer.valueOf(minMarkThresholdForStable)<0) &&
+               (StringUtils.isBlank(maxFailedOccurencesForStable) || Integer.valueOf(maxFailedOccurencesForStable)<0);
+    }
+
+    private boolean setBuildStatusSecondIfCondition(AsqatasunRunner asqatasunRunner) {
+        return Integer.valueOf(minMarkThresholdForStable) > 0 &&
+               Float.valueOf(asqatasunRunner.getMark()) < Integer.valueOf(minMarkThresholdForStable);
+    }
+
+    private boolean setBuildStatusThirdIfCondition(AsqatasunRunner asqatasunRunner) {
+        return Integer.valueOf(maxFailedOccurencesForStable) > 0 &&
+               Integer.valueOf(asqatasunRunner.getNbFailedOccurences()) > Integer.valueOf(maxFailedOccurencesForStable);
+    }
+
     /**
      * Create a temporary file within a temporary folder, created in the
      * contextDir if not exists (first time)
@@ -373,6 +386,7 @@ public class AsqatasunRunnerBuilder extends Builder {
     @Extension // This indicates to Jenkins that this is an implementation of an extension point.
     public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
 
+        public static final String PLEASE_FILL_IN_A_VALID_SCENARIO = "Please fill-in a valid scenario";
         private String pathToRunner = "";
         private String displayPort = "";
         private String firefoxPath = "";
@@ -409,11 +423,11 @@ public class AsqatasunRunnerBuilder extends Builder {
             try {
               IO.read(AsqatasunRunnerBuilder.forceVersion1ToScenario(value));
             } catch (IOException ex) {
-                return FormValidation.error("Please fill-in a valid scenario");
+                return FormValidation.error(PLEASE_FILL_IN_A_VALID_SCENARIO);
             } catch (ScriptFactory.SuiteException ex) {
-                return FormValidation.error("Please fill-in a valid scenario");
+                return FormValidation.error(PLEASE_FILL_IN_A_VALID_SCENARIO);
             } catch (org.json.JSONException ex) {
-                return FormValidation.error("Please fill-in a valid scenario");
+                return FormValidation.error(PLEASE_FILL_IN_A_VALID_SCENARIO);
             }
             return FormValidation.ok();
         }
