@@ -77,7 +77,7 @@ You will find a detailed [list of accessibility tests in Asqatasun Documentation
 * [Network architecture](documentation/10--Network-Architecture.md)
 * [Installation doc](documentation/20-install-doc.md)
 * [Configuration](documentation/30-configuration.md)
-* @@@TODO [Graphs creation and customisation](#documentation/50-graphs.md)
+* [Graphs creation and customisation](documentation/50-graphs.md)
 * [Developer doc (how to build, to contribute)](documentation/60-developer-doc.md)
 
 ## Support and discussions
