@@ -1,4 +1,4 @@
-# Configuration
+# Configuration of Asqatasun-Jenkins-plugin
 
 - Go to **Jenkins** > **Manage Jenkins** > **Configure system**
 - Go down to the **Asqatasun Runner** section
@@ -17,7 +17,7 @@ Example:
 
 ## Display port (Mandatory)
 
-Value of the display port configured for the [Xvfb startup script](install-doc.md#Xvfb).
+Value of the display port configured for the [Xvfb startup script](20-install-doc.md#Xvfb).
 
 Example:
 
@@ -117,4 +117,4 @@ in the configuration of the item (Build section).
 
 ## Next step
 
-proceed to [Configuration of Item](configuration-of-item.md)
+proceed to [Configuration of Item](35-configuration-of-item.md)
