@@ -2,6 +2,6 @@
 
 * [Network architecture](10--Network-Architecture.md)
 * @@@TODO [Installation doc](#20-install-doc.md)
-* @@@TODO [Configuration](#30-configuration.md)
+* [Configuration](30-configuration.md)
 * @@@TODO [Graphs creation and customisation](#50-graphs.md)
 * [Developer doc (how to build, to contribute)](60-developer-doc.md)
