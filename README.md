@@ -1,4 +1,4 @@
-[![License : AGPL v3](https://img.shields.io/badge/License-AGPL3-blue.svg)](LICENSE) 
+[![License : AGPL v3](https://img.shields.io/badge/license-AGPL3-blue.svg)](LICENSE) 
 [![Release](https://img.shields.io/github/release/asqatasun/Asqatasun-Jenkins-Plugin.svg)](https://github.com/Asqatasun/Asqatasun-Jenkins-Plugin/releases/latest)
 [![Build Status](https://api.travis-ci.org/Asqatasun/Asqatasun-Jenkins-Plugin.svg?branch=master)](https://travis-ci.org/Asqatasun/Asqatasun-Jenkins-Plugin)
 
