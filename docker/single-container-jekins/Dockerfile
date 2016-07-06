@@ -62,7 +62,7 @@ sed -i -e "s/\$DbName/${DATABASE_DB}/g"                                         
 sed -i -e "s/\$DbUrl/${DATABASE_HOST}/g"                                        ./asqa_runner/conf/context/asqatasun.conf &&\ 
 sed -i -e "s/jdbc.username=\*\*\*\*\*\*\*\*/jdbc.username=${DATABASE_USER}/g"   ./asqa_runner/conf/context/asqatasun.conf &&\  
 sed -i -e "s/jdbc.password=\*\*\*\*\*\*\*\*/jdbc.password=${DATABASE_PASSWD}/g" ./asqa_runner/conf/context/asqatasun.conf &&\  
-mv -rv /root/asqa_runner /opt/  &&\  
+mv -v /root/asqa_runner /opt/  &&\  
 chmod 777 /opt/asqa_runner &&\  
     wget https://github.com/Asqatasun/Asqatasun/releases/download/v${ASQA_RELEASE}/asqatasun-${ASQA_RELEASE}.i386.tar.gz && \
     tar xvfz asqatasun-${ASQA_RELEASE}.i386.tar.gz && \
