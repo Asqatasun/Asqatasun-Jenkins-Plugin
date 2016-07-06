@@ -1,0 +1,21 @@
+{
+  "type": "script",
+  "seleniumVersion": "2",
+  "formatVersion": 2,
+  "steps": [
+    {
+      "type": "get",
+      "url": "https://en.wikipedia.org/wiki/Main_Page"
+    },
+    {
+      "type": "get",
+      "url": "https://en.wikipedia.org/wiki/Wikipedia:About"
+    },
+  ],
+  "data": {
+    "configs": {},
+    "source": "none"
+  },
+  "inputs": [],
+  "timeoutSeconds": 60
+}
