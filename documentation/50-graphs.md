@@ -61,7 +61,7 @@ To view the graphs, from the an Item page, click on the *Plots* links
 When creating a graph, add several *data series*. For example, to graph the number
 of Passed, Failed and Failed occurrences, add three data series.
 
-@@@TODO add image ![](Images/screenshot_20150218_ASQATASUN_jenkins_plot_add_data_series_multiple.png)
+![](Images/screenshot_20150218_ASQATASUN_jenkins_plot_add_data_series_multiple.png)
 
 ## Example of graphs
 
