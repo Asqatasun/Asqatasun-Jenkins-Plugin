@@ -19,7 +19,7 @@ This project is the **Jenkins plugin** of Asqatasun.
 
 
 The Jenkins plugin of Asqatasun is dedicated to integrate the web accessibility 
-tests Asqatasun can do into a Quality Assurance (QA) plateform, here Jenkins.
+tests Asqatasun can do into a Quality Assurance (QA) plateform, here **Jenkins**.
 It allows for example to add accessibility tests of a web application on a nightly 
 build process (for instance just after the unit tests and functional tests).
 
@@ -76,7 +76,9 @@ You will find a detailed [list of accessibility tests in Asqatasun Documentation
 
 * [Network architecture](documentation/10--Network-Architecture.md)
 * [Installation doc](documentation/20-install-doc.md)
-* [Configuration](documentation/30-configuration.md)
+* [Configuration of Jenkins-plugin](documentation/30-configuration.md)
+* [Configuration of item](documentation/35-configuration-of-item.md)
+* [Run the build and view the results](documentation/40-usage.md)
 * [Graphs creation and customisation](documentation/50-graphs.md)
 * [Developer doc (how to build, to contribute)](documentation/60-developer-doc.md)
 

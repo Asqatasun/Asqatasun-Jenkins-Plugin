@@ -9,9 +9,7 @@ You may use Asqatasun Jenkins plugin in two different ways :
 
 One single host carries the whole stack (Jenkins, Asqatasun, MySQL).
 
-
-@@@TODO add image 
-![](Images/Asqatasun-Jenkins-Network-architecture-one-host.svg)
+![](Images/Asqatasun-Jenkins-Network-architecture-one-host.png)
 
 ## Two of more hosts
 
@@ -22,8 +20,7 @@ view the details of an audit, you can :
 * have a full Asqatasun on another host,
 * and have both Asqatasun share the same MySQL database.
 
-@@@TODO add image 
-![](Images/Asqatasun-Jenkins-Network-architecture-multiple-hosts.svg)
+![](Images/Asqatasun-Jenkins-Network-architecture-multiple-hosts.png)
 
 ## Next step
 
