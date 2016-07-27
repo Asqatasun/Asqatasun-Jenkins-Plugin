@@ -10,11 +10,11 @@ Launch the build (*Build now* link or icon *Schedule build*)
 
 Results in raw mode can be viewed from the *Console output* of the item
 
-@@@TODO add image ![](Images/screenshot_20150218_ASQATASUN_jenkins_console_output.png)
+![](Images/screenshot_20150218_ASQATASUN_jenkins_console_output.png)
 
 ## View the results (from Asqatasun interface)
 
 You can have an extensive and detailed view of the audit within Asqatasun interface.
 To access it, from the Item page, click on the *Asqatasun* link.
 
-@@@TODO add image ![](Images/screenshot_20150218_ASQATASUN_jenkins_link_to_Asqatasun.png)
+![](Images/screenshot_20150218_ASQATASUN_jenkins_link_to_Asqatasun.png)
