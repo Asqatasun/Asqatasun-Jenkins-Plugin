@@ -29,6 +29,8 @@ BEGIN
 	    (contractId,(select Id_Referential FROM TGSI_REFERENTIAL WHERE Code like 'Aw22') );
       INSERT IGNORE INTO `TGSI_CONTRACT_REFERENTIAL` (`CONTRACT_Id_Contract`, `REFERENTIAL_Id_Referential`) VALUES
 	    (contractId,(select Id_Referential FROM TGSI_REFERENTIAL WHERE Code like 'Rgaa30'));
+      INSERT IGNORE INTO `TGSI_CONTRACT_REFERENTIAL` (`CONTRACT_Id_Contract`, `REFERENTIAL_Id_Referential`) VALUES
+	    (contractId,(select Id_Referential FROM TGSI_REFERENTIAL WHERE Code like 'Seo'));
       INSERT IGNORE INTO `TGSI_CONTRACT_FUNCTIONALITY` (`CONTRACT_Id_Contract`, `FUNCTIONALITY_Id_Functionality`) VALUES
 	    (contractId,(select Id_Functionality FROM TGSI_FUNCTIONALITY WHERE Code like 'SCENARIO'));
   END IF;
