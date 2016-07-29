@@ -562,9 +562,6 @@ public class AsqatasunRunnerBuilder extends Builder {
                     new Option("Accessiweb2.2 : Bronze", "Aw22;Bz"),
                     new Option("Accessiweb2.2 : Argent", "Aw22;Ar"),
                     new Option("Accessiweb2.2 : Or", "Aw22;Or"),
-                    new Option("Rgaa2.2 : A", "Rgaa22;Bz"),
-                    new Option("Rgaa2.2 : AA", "Rgaa22;Ar"),
-                    new Option("Rgaa2.2 : AAA", "Rgaa22;Or"),
                     new Option("Rgaa3 : A", "Rgaa30;Bz"),
                     new Option("Rgaa3 : AA", "Rgaa30;Ar"),
                     new Option("Rgaa3 : AAA", "Rgaa30;Or")
