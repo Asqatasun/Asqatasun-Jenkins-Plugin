@@ -603,7 +603,7 @@ public class AsqatasunRunnerBuilder extends Builder {
         }
 
         /**
-         * @return the path to the asqatasun cli script.
+         * @return the display port for the Xvfb startup script.
          */
         public String getDisplayPort() {
             return displayPort;

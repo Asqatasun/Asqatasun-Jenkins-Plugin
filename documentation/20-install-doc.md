@@ -97,7 +97,7 @@ sudo update-rc.d xvfb defaults
 #### Multiple hosts install
 
 * we assume you already have a full Asqatasun installed with agiven Mysql database
-* [Install Asqatasun Command Line](http://doc.asqatasun.org/en/10_Install_doc/Asqatasun-runner/prerequisites-cli-doc.html) on the 
+* [Install Asqatasun Command Line](http://doc.asqatasun.org/en/10_Install_doc/Asqatasun-runner/prerequisites-runner.html) on the 
 Jenkins host, and configure it to use the same MySql database
 
 Let `ASQATASUN_RUNNER_DIR` be the directory where Asqatasun-Runner is installed (for 

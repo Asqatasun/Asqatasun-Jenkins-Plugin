@@ -12,7 +12,7 @@ Path to the local Asqatasun-Runner
 Example:
 
 ```bash
-/opt/asqatasun-cli/
+/opt/asqatasun-runner/
 ```
 
 ## Display port (Mandatory)
