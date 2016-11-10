@@ -559,9 +559,6 @@ public class AsqatasunRunnerBuilder extends Builder {
          */
         public ListBoxModel doFillRefAndLevelItems(@QueryParameter String selection) {
             return new ListBoxModel(
-                    new Option("Accessiweb2.2 : Bronze", "Aw22;Bz"),
-                    new Option("Accessiweb2.2 : Argent", "Aw22;Ar"),
-                    new Option("Accessiweb2.2 : Or", "Aw22;Or"),
                     new Option("Rgaa3 : A", "Rgaa30;Bz"),
                     new Option("Rgaa3 : AA", "Rgaa30;Ar"),
                     new Option("Rgaa3 : AAA", "Rgaa30;Or"),
