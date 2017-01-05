@@ -1,7 +1,26 @@
 
---------------------------------
+
+Asqatasun-Jenkins-Plugin 1.3.x, 2017-xx-xx
+------------------------------------------
+
+Features:
+None
+
+Security:
+None
+
+Bugs:
+None
+
+Configuration:
+None
+
+Documentation:
+None
+
+
 Asqatasun-Jenkins-Plugin 1.3.1, 2016-08-22
---------------------------------
+------------------------------------------
 
 Features:
 None
@@ -22,9 +41,8 @@ Documentation:
 
 
 
---------------------------------
 Asqatasun-Jenkins-Plugin 1.3.0, 2016-02-10
---------------------------------
+------------------------------------------
 
 
 
