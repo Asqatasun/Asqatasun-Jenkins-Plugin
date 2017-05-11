@@ -1,7 +1,7 @@
 [![License : AGPL v3](https://img.shields.io/badge/license-AGPL3-blue.svg)](LICENSE) 
-[![Release](https://img.shields.io/github/release/asqatasun/Asqatasun-Jenkins-Plugin.svg)](https://github.com/Asqatasun/Asqatasun-Jenkins-Plugin/releases/latest)
 [![Build Status](https://api.travis-ci.org/Asqatasun/Asqatasun-Jenkins-Plugin.svg?branch=master)](https://travis-ci.org/Asqatasun/Asqatasun-Jenkins-Plugin)
-
+[![Release](https://img.shields.io/github/release/asqatasun/Asqatasun-Jenkins-Plugin.svg)](https://github.com/Asqatasun/Asqatasun-Jenkins-Plugin/releases/latest)
+[![Dependency Status](https://www.versioneye.com/user/projects/5913a535a786140043ee082f/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5913a535a786140043ee082f)
 
 # Asqatasun Jenkins plugin 
 
