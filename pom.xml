@@ -17,7 +17,23 @@
 
     <name>Asqatasun Jenkins Plugin</name>
     <description>Asqatasun Runner</description>
-    <url>https://wiki.jenkins-ci.org/display/JENKINS/TODO+Plugin</url>
+    <url>https://github.com/Asqatasun/Asqatasun-Jenkins-Plugin</url>
+    <organization>
+        <name>Asqatasun.org</name>
+        <url>http://asqatasun.org</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>GNU Affero General Public License v3.0</name>
+            <url>https://www.gnu.org/licenses/agpl-3.0.txt</url>
+            <distribution>manual</distribution>
+        </license>
+    </licenses>
+    <prerequisites>         <!--    Maven 3.1 is required to use the following plugin:   -->
+        <maven>3.1</maven>  <!--    ............  org.owasp:dependency-check-maven       -->
+    </prerequisites>        <!--    The following command line indicates
+                                    the minimum version of Maven for maven plugins
+                                    ............  mvn versions:display-plugin-updates     -->
     <developers>
         <developer>
             <id>koj</id>
@@ -25,6 +41,14 @@
             <email>jk@asqatasun.com</email>
         </developer>
     </developers>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+    </properties>
+
     <!-- Assuming you want to host on @jenkinsci:
    <scm>
      <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
@@ -56,7 +80,64 @@
     </pluginRepositories>
     <build>
         <finalName>jenkins-asqatasun-runner-plugin-${project.version}</finalName>
+        <plugins>
+    <!--    Generate standalone Javadocs
+               https://maven.apache.org/plugins/maven-javadoc-plugin/
+               https://maven.apache.org/plugins/maven-javadoc-plugin/usage.html
+               https://maven.apache.org/plugins/maven-javadoc-plugin/javadoc-mojo.html
+               JavaDoc: target/site/apidocs
+                        target/site/testapidocs
+               Usage:   mvn javadoc:javadoc
+                        mvn javadoc:aggregate
+                        mvn javadoc:test-javadoc
+                        mvn javadoc:test-aggregate           -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.4</version>
+                <configuration>
+                    <show>private</show>
+                    <author>false</author>
+                    <linksource>true</linksource> <!-- Creates an HTML version of each source file (with line numbers) -->
+                    <doctitle> --  Javadocs for ${project.name} ${project.version}</doctitle>
+                    <windowtitle>Javadocs for ${project.name} ${project.version}</windowtitle>
+                    <header> -- ${project.name} v${project.version}</header>
+                    <footer>${project.name} v${project.version}  -- </footer>
+                    <bottom>
+                        <![CDATA[
+                            &#169; 2008&#x2013;{currentYear}
+                            <a href="http://asqatasun.org">Asqatasun.org<a>
+                        ]]>
+                    </bottom>
+                </configuration>
+            </plugin>
+
+    <!--    OWASP Dependency-Check
+                https://www.owasp.org/index.php/OWASP_Dependency_Check
+                http://jeremylong.github.io/DependencyCheck/
+                http://jeremylong.github.io/DependencyCheck/dependency-check-maven/
+                report: target/dependency-check-report.html
+                usage:  mvn dependency-check:check
+                        mvn dependency-check:aggregate
+                        mvn dependency-check:help -Ddetail=true -Dgoal=aggregate       -->
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>1.4.5</version>
+        <!--    <configuration>
+                    <failBuildOnCVSS>8</failBuildOnCVSS>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                    </execution>
+                </executions>       -->
+            </plugin>
+        </plugins>
     </build>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
