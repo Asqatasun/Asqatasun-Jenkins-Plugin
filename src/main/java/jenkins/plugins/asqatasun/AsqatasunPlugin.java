@@ -1,6 +1,6 @@
 /*
  * Asqatasun Runner - Trigger Automated webpage assessment from Jenkins 
- * Copyright (C) 2015 Asqatasun.org
+ * Copyright (C) 2017 Asqatasun.org
  *
  * This file is part of Asqatasun.
  *
