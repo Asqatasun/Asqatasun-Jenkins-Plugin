@@ -565,6 +565,9 @@ public class AsqatasunRunnerBuilder extends Builder {
                     new Option("Rgaa3 : A", "Rgaa30;Bz"),
                     new Option("Rgaa3 : AA", "Rgaa30;Ar"),
                     new Option("Rgaa3 : AAA", "Rgaa30;Or"),
+                    new Option("Rgaa3.2017 : A", "Rgaa32017;Bz"),
+                    new Option("Rgaa3.2017 : AA", "Rgaa32017;Ar"),
+                    new Option("Rgaa3.2017 : AAA", "Rgaa32017;Or"),
                     new Option("SEO : Critique", "Seo;Bz"),
                     new Option("SEO : Critique + Majeur", "Seo;Ar"),
                     new Option("SEO : Critique + Majeur + Mineur", "Seo;Or")
