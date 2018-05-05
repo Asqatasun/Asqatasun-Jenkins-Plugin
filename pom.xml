@@ -94,7 +94,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.4</version>
+                <version>3.0.0</version>
                 <configuration>
                     <show>private</show>
                     <author>false</author>
@@ -123,7 +123,7 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>1.4.5</version>
+                <version>3.1.2</version>
         <!--    <configuration>
                     <failBuildOnCVSS>8</failBuildOnCVSS>
                 </configuration>

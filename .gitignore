@@ -30,4 +30,7 @@ nbactions.xml
 # Git - Merge temp file
 *.orig
 
+# log files
+*.log
+
 
