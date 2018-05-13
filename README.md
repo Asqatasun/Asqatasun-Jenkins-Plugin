@@ -2,6 +2,9 @@
 [![Build Status](https://api.travis-ci.org/Asqatasun/Asqatasun-Jenkins-Plugin.svg?branch=master)](https://travis-ci.org/Asqatasun/Asqatasun-Jenkins-Plugin)
 [![Release](https://img.shields.io/github/release/asqatasun/Asqatasun-Jenkins-Plugin.svg)](https://github.com/Asqatasun/Asqatasun-Jenkins-Plugin/releases/latest)
 [![Dependency Status](https://www.versioneye.com/user/projects/5913a535a786140043ee082f/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5913a535a786140043ee082f)
+[![Code of Conduct](https://img.shields.io/badge/code%20of-conduct-ff69b4.svg?style=flat-square)](https://github.com/Asqatasun/Asqatasun-Jenkins-Plugin/blob/develop/CODE_OF_CONDUCT.md)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/Asqatasun/Asqatasun-Jenkins-Plugin/blob/develop/CONTRIBUTING.md)
+
 
 # Asqatasun Jenkins plugin 
 
