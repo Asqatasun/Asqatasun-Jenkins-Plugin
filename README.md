@@ -44,11 +44,11 @@ For **accessibility testing**, your staff uses some automated tools and human te
 you would like to have a stack of basic accessibility tests done in a **fully automated and integrated**
 fashion.
 
-You know this is not sufficient to have a full compliance to accessibility,
-but this is a **good starting point to seamlessly increase the accessibility level** of your app
+You know this is not sufficient to have a full compliance with accessibility guidelines,
+but this is a **good starting point to seamlessly improve the accessibility level** of your app
 (and by the way the accessibility skills of your dev team ;) ).
 
-Asqatasun Jenkins plugin is meant to *mecanize* the tests provided by Asqatasun.
+Asqatasun Jenkins plugin is meant to *mechanize* the tests provided by Asqatasun.
 
 ## Features
 
@@ -61,7 +61,7 @@ Asqatasun Jenkins plugin is meant to *mecanize* the tests provided by Asqatasun.
 You may also generate graphs of various metrics including:
 
 * Asqatasun Meter (the performance score of accessibility)
-* Number of Passed / Failed / Not Applicatble tests
+* Number of Passed / Failed / Not Applicable tests
 * Number of occurrences of failed tests
 
 All audits ran can also be viewed in detail within Asqatasun web application, easing the
@@ -96,7 +96,7 @@ You will find a detailed [list of accessibility tests in Asqatasun Documentation
 We would be really glad to have you on board ! You can help in many ways:
 
 * [Fill in bug report](https://github.com/Asqatasun/Asqatasun-Jenkins-Plugin/issues)
-* [Pull Requests](https://github.com/Asqatasun/Asqatasun-Jenkins-Plugin/pulls) are off course welcome
+* [Pull Requests](https://github.com/Asqatasun/Asqatasun-Jenkins-Plugin/pulls) are of course welcome
 
 
 Everything is summarized in the [CONTRIBUTING](CONTRIBUTING.md) file.
